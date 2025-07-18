@@ -380,6 +380,19 @@ describe("Lean IMT", () => {
                 expect(tree.verifyProof(proof)).toBe(true)
             }
         })
+
+        it("Should generate a valid proof for a tree with a single leaf", () => {
+            const leaves = [BigInt(1)]
+            const tree = new LeanIMT(poseidon, leaves)
+
+            const proof = tree.generateProof(0)
+
+            expect(proof.index).toBe(0)
+            expect(proof.leaf).toBe(tree.leaves[0])
+            expect(proof.siblings).toStrictEqual([])
+            expect(proof.root).toBe(tree.root)
+            expect(tree.verifyProof(proof)).toBe(true)
+        })
     })
 
     describe("# verifyProof", () => {

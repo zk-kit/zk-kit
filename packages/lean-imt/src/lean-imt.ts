@@ -325,7 +325,12 @@ export default class LeanIMT<N = bigint> {
 
         // The index might be different from the original index of the leaf, since
         // in some cases some siblings are not included (as explained above).
-        return { root: this.root, leaf, index: Number.parseInt(path.reverse().join(""), 2), siblings }
+        return {
+            root: this.root,
+            leaf,
+            index: path.length === 0 ? 0 : Number.parseInt(path.reverse().join(""), 2),
+            siblings
+        }
     }
 
     /**
