@@ -38,7 +38,7 @@ export function LazyTowerHashChainProofBuilder(H: number, W: number, hash = defa
     checkParameter(hash, "hash", "function")
 
     const bitsPerLevel = 4
-    const digestFunc = (arr: bigint[]) => arr.reduce(hash)
+    const digestFunc = (arr: bigint[]) => arr.length > 0 ? arr.reduce(hash) : BigInt(0)
     const levels: bigint[][] = []
     const fullLevels: bigint[][] = []
 
