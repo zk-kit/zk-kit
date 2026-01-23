@@ -6,7 +6,7 @@ describe("crypto", () => {
 
         expect(fun).toThrow("size 0 is too small, need at least 1")
     })
-    it("Should correctly return a random value", async () => {
+    it("Should return a random value of the specified size", async () => {
         const rv1 = crypto.getRandomValues(1)
         const rv2 = crypto.getRandomValues(2)
         const rv32 = crypto.getRandomValues(32)

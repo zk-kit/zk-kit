@@ -4,7 +4,7 @@ import { bufferToHexadecimal, hexadecimalToBuffer } from "@zk-kit/utils"
 import Blake2b from "../src/blake2b"
 
 describe("Blake2b Basic test", () => {
-    test("Basic case should return correctly", () => {
+    test("Should return the hash for a basic input", () => {
         // From the example computation in the RFC
         const instance = new Blake2b()
         instance.update(Buffer.from("abc"))
@@ -14,7 +14,7 @@ describe("Blake2b Basic test", () => {
         )
     })
 
-    test("Empty string should return correctly", () => {
+    test("Should return the hash for an empty string", () => {
         // From the example computation in the RFC
         const instance = new Blake2b()
         instance.update(Buffer.from(""))
@@ -23,7 +23,7 @@ describe("Blake2b Basic test", () => {
             "786a02f742015903c6c6fd852552d272912f4740e15847618a86e217f71f5419d25e1031afee585313896444934eb04b903a685b1448b755d56f701afe9be2ce"
         )
     })
-    test("Longer string should return correctly", () => {
+    test("Should return the hash for a longer string", () => {
         // From the example computation in the RFC
         const instance = new Blake2b()
         instance.update(Buffer.from("The quick brown fox jumps over the lazy dog"))
@@ -33,16 +33,16 @@ describe("Blake2b Basic test", () => {
         )
     })
 
-    test("Passing an output length too high should throw", () => {
+    test("Should throw if the output length exceeds 64", () => {
         expect(() => new Blake2b(65)).toThrow("Illegal output length, expected 0 < length <= 64")
     })
 
-    test("Passing an output length too low should throw", () => {
+    test("Should throw if the output length is negative", () => {
         expect(() => new Blake2b(-1)).toThrow("Illegal output length, expected 0 < length <= 64")
     })
 })
 
-test("BLAKE2b generated test vectors2", () => {
+test("Should match BLAKE2b official test vectors", () => {
     const contents = fs.readFileSync(path.resolve(__dirname, "./generated-test-vectors.txt"), "utf8")
     contents.split("\n").forEach((line) => {
         if (line.length === 0) {

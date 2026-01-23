@@ -41,13 +41,13 @@ describe("Conversions", () => {
     })
 
     describe("# hexadecimalToBigInt", () => {
-        it("Should convert a bigint to a hexadecimal", async () => {
+        it("Should convert a hexadecimal to a bigint", async () => {
             const result = hexadecimalToBigInt(testHex1BE)
 
             expect(result).toBe(testBigInt1BE)
         })
 
-        it("Should convert a bigint to a hexadecimal adding the '0x' prefix if missing", async () => {
+        it("Should convert a hexadecimal to a bigint even without the '0x' prefix", async () => {
             const result = hexadecimalToBigInt(testHex1BE.slice(2))
 
             expect(result).toBe(testBigInt1BE)
@@ -229,14 +229,14 @@ describe("Conversions", () => {
             expect(result).toBe(testBase64)
         })
 
-        it("Should not correctly convert a base64 string with invalid characters", async () => {
+        it("Should not preserve invalid characters when decoding a base64 string", async () => {
             const result = base64ToText("#@. Unsupported characters .@#")
 
             expect(textToBase64(result)).not.toBe("Unsupportedcharacter")
             expect(textToBase64(result)).not.toBe("#@. Unsupported characters .@#")
         })
 
-        it("Should support and correctly convert text with non-ASCII characters", async () => {
+        it("Should convert text with non-ASCII characters to and from base64", async () => {
             const nonASCII = "🔥 БД Ω 好 ت 本"
 
             const result = textToBase64(nonASCII)
@@ -246,7 +246,7 @@ describe("Conversions", () => {
     })
 
     describe("BigInt to/from Buffer Conversions", () => {
-        it("Should support little-endian conversions", async () => {
+        it("Should convert between bigint and buffer in little-endian byte order", async () => {
             const in1 = Buffer.from(testBytes1)
             const n1 = leBufferToBigInt(in1)
             expect(n1).toBe(testBigInt1LE)
@@ -255,7 +255,7 @@ describe("Conversions", () => {
             expect(out1).toStrictEqual(Buffer.from(testBytes1))
         })
 
-        it("Should support big-endian conversions", async () => {
+        it("Should convert between bigint and buffer in big-endian byte order", async () => {
             const in1 = Buffer.from(testBytes1)
             const n1 = beBufferToBigInt(in1)
             expect(n1).toBe(testBigInt1BE)

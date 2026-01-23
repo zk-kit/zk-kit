@@ -11,7 +11,7 @@ describe("utils", () => {
             const outputSelf = poseidonPerm([BigInt(0), ...inputs])
             expect(outputSelf[0]).toStrictEqual(outputCircomlib)
         })
-        it("Should produce the same output given the same inputs", () => {
+        it("Should produce deterministic output", () => {
             const inputs = [BigInt(1), BigInt(2), BigInt(3)]
             const output1 = poseidonPerm([BigInt(0), ...inputs])
             const output2 = poseidonPerm([BigInt(0), ...inputs])
@@ -46,7 +46,7 @@ describe("utils", () => {
     })
 
     describe("pow5", () => {
-        it("Should return the correct value", () => {
+        it("Should return the fifth power of the input", () => {
             expect(pow5(BigInt(1))).toBe(BigInt(1))
             expect(pow5(BigInt(2))).toBe(BigInt(32))
             expect(pow5(BigInt(3))).toBe(BigInt(243))
@@ -56,7 +56,7 @@ describe("utils", () => {
     })
 
     describe("normalize", () => {
-        it("Should return the correct value", () => {
+        it("Should normalize a value into the field range", () => {
             expect(normalize(BigInt(-1))).toBe(BigInt(r - BigInt(1)))
             expect(normalize(BigInt(-r))).toBe(BigInt(r))
             expect(normalize(BigInt(0))).toBe(BigInt(0))
@@ -67,16 +67,16 @@ describe("utils", () => {
     })
 
     describe("unstringifyBigInts", () => {
-        it("should work on a string input with decimal numbers", () => {
+        it("Should convert a string input with decimal numbers", () => {
             expect(unstringifyBigInts("1")).toBe(BigInt(1))
         })
-        it("should work on a string input with hex number", () => {
+        it("Should convert a string input with a hex number", () => {
             expect(unstringifyBigInts("0xA")).toBe(BigInt(10))
         })
-        it("should work on a string[] input", () => {
+        it("Should convert a string[] input", () => {
             expect(unstringifyBigInts(["1", "2"])).toStrictEqual([BigInt(1), BigInt(2)])
         })
-        it("should work on a string[][] input", () => {
+        it("Should convert a string[][] input", () => {
             expect(
                 unstringifyBigInts([
                     ["1", "2"],
@@ -87,7 +87,7 @@ describe("utils", () => {
                 [BigInt(3), BigInt(4)]
             ])
         })
-        it("should work on a string[][][] input", () => {
+        it("Should convert a string[][][] input", () => {
             expect(
                 unstringifyBigInts([
                     [
@@ -110,13 +110,13 @@ describe("utils", () => {
                 ]
             ])
         })
-        it("should work on a { [key: string]: string } input", () => {
+        it("Should convert a { [key: string]: string } input", () => {
             expect(unstringifyBigInts({ a: "1", b: "2" })).toStrictEqual({ a: BigInt(1), b: BigInt(2) })
         })
-        it("should work on a null input", () => {
+        it("Should return null for a null input", () => {
             expect(unstringifyBigInts(null)).toBeNull()
         })
-        it("should return the input if it is not a valid value", () => {
+        it("Should return the input unchanged if it is not a valid value", () => {
             expect(unstringifyBigInts("A")).toBe("A")
         })
     })

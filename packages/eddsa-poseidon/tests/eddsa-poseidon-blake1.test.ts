@@ -64,7 +64,7 @@ describe("EdDSAPoseidon", () => {
         expect(publicKey[1]).toBe(circomlibPublicKey[1])
     })
 
-    it("Should throw an error if the secret type is not supported", async () => {
+    it("Should throw if the private key type is not supported", async () => {
         const privateKey = BigInt(32)
 
         const fun = () => derivePublicKey(privateKey as any)
@@ -130,7 +130,7 @@ describe("EdDSAPoseidon", () => {
         expect(signature.S).toBe(circomlibSignature.S)
     })
 
-    it("Should throw an error if the message type is not supported", async () => {
+    it("Should throw if the message type is not supported", async () => {
         const message = true
 
         const fun = () => signMessage(privateKey, message as any)
@@ -188,7 +188,7 @@ describe("EdDSAPoseidon", () => {
         expect(verifySignature(message, signature, publicKey)).toBeFalsy()
     })
 
-    it("Should not verify a signature S value exceeds the predefined sub order", async () => {
+    it("Should not verify a signature if the S value exceeds the subgroup order", async () => {
         const publicKey = derivePublicKey(privateKey)
         const signature = signMessage(privateKey, message)
 
@@ -197,7 +197,7 @@ describe("EdDSAPoseidon", () => {
         expect(verifySignature(message, signature, publicKey)).toBeFalsy()
     })
 
-    it("Should derive a public key from N random private keys", async () => {
+    it("Should derive a public key from multiple random private keys", async () => {
         for (let i = 0, len = 10; i < len; i += 1) {
             const privateKey = Buffer.from(crypto.getRandomValues(32))
             const publicKey = derivePublicKey(privateKey)
@@ -248,13 +248,13 @@ describe("EdDSAPoseidon", () => {
         expect(unpackedPublicKey[1]).toBe(publicKey[1])
     })
 
-    it("Should not unpack a public key if the public key type is not supported", async () => {
+    it("Should not unpack a public key if its type is not supported", async () => {
         const fun = () => unpackPublicKey("e")
 
         expect(fun).toThrow(`Parameter 'publicKey' is not a bignumber-ish`)
     })
 
-    it("Should not unpack a public key if the public key does not correspond to a valid point on the curve", async () => {
+    it("Should not unpack a public key if it does not correspond to a valid curve point", async () => {
         const invalidPublicKey = packPoint([BigInt("0"), BigInt(r + BigInt(1))]).toString()
 
         const fun = () => unpackPublicKey(invalidPublicKey)
@@ -286,7 +286,7 @@ describe("EdDSAPoseidon", () => {
         expect(packedSignature).toEqual(circomlibPackedSignature)
     })
 
-    it("Should still pack an incorrect signature", async () => {
+    it("Should pack a signature even if it is invalid", async () => {
         const signature = signMessage(privateKey, message)
 
         signature.S = BigInt(3)
@@ -305,7 +305,7 @@ describe("EdDSAPoseidon", () => {
         expect(fun).toThrow("Invalid signature")
     })
 
-    it("Should not pack a signature S value exceeds the predefined sub order", async () => {
+    it("Should not pack a signature if the S value exceeds the subgroup order", async () => {
         const signature = signMessage(privateKey, message)
 
         signature.S = BigInt("3421888242871839275222246405745257275088614511777268538073601725287587578984328")
@@ -328,7 +328,7 @@ describe("EdDSAPoseidon", () => {
         expect(circomlibSignature).toEqual(circomlibUnpackedSignature)
     })
 
-    it("Should not unpack a packed signature of the wrong length", async () => {
+    it("Should not unpack a packed signature with an invalid length", async () => {
         const signature = signMessage(privateKey, message)
 
         const packedSignature = packSignature(signature)
@@ -337,7 +337,7 @@ describe("EdDSAPoseidon", () => {
         expect(fun).toThrow("Packed signature must be 64 bytes")
     })
 
-    it("Should not unpack a packed signature with point malformed", async () => {
+    it("Should not unpack a packed signature with a malformed point", async () => {
         const signature = signMessage(privateKey, message)
 
         const packedSignature = packSignature(signature)
@@ -347,7 +347,7 @@ describe("EdDSAPoseidon", () => {
         expect(fun).toThrow("Invalid packed signature point")
     })
 
-    it("Should still unpack a packed signature with scalar malformed", async () => {
+    it("Should unpack a packed signature even if the scalar is malformed", async () => {
         const signature = signMessage(privateKey, message)
 
         const packedSignature = packSignature(signature)
@@ -356,7 +356,7 @@ describe("EdDSAPoseidon", () => {
         expect(() => unpackSignature(packedSignature)).not.toThrow()
     })
 
-    it("Should handle a signature with values smaller than 32 bytes", async () => {
+    it("Should pack and unpack a signature with values smaller than 32 bytes", async () => {
         const signature = signMessage(privateKey, message)
 
         // S is the only value which we can easily make artifically small, since
@@ -397,7 +397,7 @@ describe("EdDSAPoseidon", () => {
 })
 
 describe("eddsa-poseidon.utils", () => {
-    it("Should identify points in different forms", async () => {
+    it("Should validate points in different representations", async () => {
         expect(isPoint(undefined as any as Point)).toBeFalsy()
         expect(isPoint(123 as any as Point)).toBeFalsy()
         expect(isPoint(["1", "2"])).toBeTruthy()
@@ -409,7 +409,7 @@ describe("eddsa-poseidon.utils", () => {
         expect(isPoint({ x: "1", y: "2" } as any as Point)).toBeFalsy()
     })
 
-    it("Should identify signatures in different forms", async () => {
+    it("Should validate signatures in different representations", async () => {
         expect(isSignature(undefined as any as Signature)).toBeFalsy()
         expect(isSignature(123 as any as Signature)).toBeFalsy()
         expect(isSignature({ R8: ["1", "2"], S: "3" })).toBeTruthy()

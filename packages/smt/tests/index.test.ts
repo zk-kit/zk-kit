@@ -83,7 +83,7 @@ describe("SMT", () => {
             ["sha256", "40770450d00520bdab58e115dd4439c20cd39028252f3973e81fb15b02eb28f7"],
             ["poseidon2", "2d7cc420e66d3accf1c6fc78528ed5ce2453cc5fd7341e58ad283735f9b1f819"],
             ["pedersen", "034fab1996e408dab73e2bfdc79f2d4e108eac5f015c86d4e01c3c23ea4c2a91"]
-        ])("Should add 6 new entries and create the correct root hash - %s", (hash, expected) => {
+        ])("Should add 6 new entries and create the root hash - %s", (hash, expected) => {
             const tree = new SMT(hashes[hash as keyof typeof hashes])
 
             for (const key of testKeys) {
@@ -163,7 +163,7 @@ describe("SMT", () => {
             ["sha256", "5d2bfda7c24d9e9e59fe89a271f7d0a3435892c98bc1121b9b590d800deeca10"],
             ["poseidon2", "18dca814d672b1829da81727f3a1db8c36e4eaa87d727a76498367abdd1a6a84"],
             ["pedersen", "1e6e5d4a34fa89594da39f111a71aff6c7a55f03b593e6e87a73a877061568f8"]
-        ])("Should delete 3 entries and create the correct root hash - %s", (hash, expected) => {
+        ])("Should delete 3 entries and create the root hash - %s", (hash, expected) => {
             const tree = new SMT(hashes[hash as keyof typeof hashes])
 
             for (const key of testKeys) {
@@ -213,7 +213,7 @@ describe("SMT", () => {
             }
         )
 
-        it.each([["sha256"], ["poseidon2"], ["pedersen"]])("Should not verify a wrong Merkle proof - %s", (hash) => {
+        it.each([["sha256"], ["poseidon2"], ["pedersen"]])("Should not verify an invalid Merkle proof - %s", (hash) => {
             const tree = new SMT(hashes[hash as keyof typeof hashes])
 
             for (const key of testKeys) {

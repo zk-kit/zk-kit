@@ -42,7 +42,7 @@ describe("LazyTowerHashChainProofBuilder", () => {
         expect(proof).toEqual(ans)
     })
 
-    it("Should build a proof 2", () => {
+    it("Should build a proof with a different index", () => {
         const pb = LazyTowerHashChainProofBuilder(10, 4, hash)
         for (let i = BigInt(0); i < 150; i += BigInt(1)) {
             pb.add(i)
@@ -100,7 +100,7 @@ describe("LazyTowerHashChainProofBuilder", () => {
         expect(proof).toEqual(ans)
     })
 
-    it("Should work with the default hash function.", () => {
+    it("Should produce the same proof with the default hash function", () => {
         const pb = LazyTowerHashChainProofBuilder(2, 3, hash)
         for (let i = BigInt(0); i < 12; i += BigInt(1)) {
             pb.add(i)
@@ -112,7 +112,7 @@ describe("LazyTowerHashChainProofBuilder", () => {
         expect(pb.build(11)).toEqual(pbDefaultHash.build(11))
     })
 
-    it("Should not initialize with wrong parameters", () => {
+    it("Should not initialize with invalid parameters", () => {
         const fun1 = () => LazyTowerHashChainProofBuilder(undefined as any, 2, hash)
         expect(fun1).toThrow("Parameter 'H' is not defined")
 
@@ -120,7 +120,7 @@ describe("LazyTowerHashChainProofBuilder", () => {
         expect(fun2).toThrow("Parameter 'hash' is none of these types: function")
     })
 
-    it("Should not add a item in a full tower", () => {
+    it("Should not add an item to a full tower", () => {
         const pb = LazyTowerHashChainProofBuilder(2, 3, hash)
         for (let i = BigInt(0); i < 12; i += BigInt(1)) {
             pb.add(i)
@@ -129,7 +129,7 @@ describe("LazyTowerHashChainProofBuilder", () => {
         expect(fun).toThrow("The tower is full.")
     })
 
-    it("Should not create a proof with the wrong index", () => {
+    it("Should not create a proof with an invalid index", () => {
         const pb = LazyTowerHashChainProofBuilder(10, 4, hash)
         const fun1 = () => pb.build(-1)
         expect(fun1).toThrow("The tower is empty.")
