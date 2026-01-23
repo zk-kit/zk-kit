@@ -31,8 +31,8 @@
         "README.md",
         "LICENSE"
     ],
-    "repository": "git@github.com:privacy-scaling-explorations/zk-kit.git",
-    "homepage": "https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/poseidon-cipher",
+    "repository": "git@github.com:zk-kit/zk-kit.git",
+    "homepage": "https://github.com/zk-kit/zk-kit/tree/main/packages/poseidon-cipher",
     "scripts": {
         "build": "rimraf dist && rollup -c rollup.config.ts --configPlugin typescript",
         "prepublishOnly": "yarn build"

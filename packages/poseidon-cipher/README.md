@@ -6,10 +6,10 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/privacy-scaling-explorations/zk-kit">
+    <a href="https://github.com/zk-kit/zk-kit">
         <img src="https://img.shields.io/badge/project-zk--kit-blue.svg?style=flat-square">
     </a>
-    <a href="https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/poseidon-cipher/LICENSE">
+    <a href="https://github.com/zk-kit/zk-kit/tree/main/packages/poseidon-cipher/LICENSE">
         <img alt="NPM license" src="https://img.shields.io/npm/l/%40zk-kit%2Fposeidon-cipher?style=flat-square">
     </a>
     <a href="https://www.npmjs.com/package/@zk-kit/poseidon-cipher">
@@ -29,7 +29,7 @@
     </a>
 </p>
 
-> ⚠️ **SECURITY WARNING**: This implementation uses JavaScript's native `BigInt` which is [not constant-time](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt#cryptography) and may be vulnerable to timing attacks. If your application requires protection against timing attacks, consider using a constant-time cryptographic library instead. This issue is tracked in [GitHub issue #341](https://github.com/privacy-scaling-explorations/zk-kit/issues/341).
+> ⚠️ **SECURITY WARNING**: This implementation uses JavaScript's native `BigInt` which is [not constant-time](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt#cryptography) and may be vulnerable to timing attacks. If your application requires protection against timing attacks, consider using a constant-time cryptographic library instead. This issue is tracked in [GitHub issue #341](https://github.com/zk-kit/zk-kit/issues/341).
 
 <div align="center">
     <h4>

@@ -1,26 +1,26 @@
 <p align="center">
     <h1 align="center">
       <picture>
-        <source media="(prefers-color-scheme: light)" srcset="https://github.com/privacy-scaling-explorations/zk-kit/assets/11427903/f691c48c-021f-485d-89ef-9ddc8ba74787">
-        <source media="(prefers-color-scheme: dark)" srcset="https://github.com/privacy-scaling-explorations/zk-kit/assets/11427903/f43f4403-846a-48b4-a1fa-0ab234c225e5">
-        <img width="250" alt="ZK-Kit logo" src="https://github.com/privacy-scaling-explorations/zk-kit/assets/11427903/f691c48c-021f-485d-89ef-9ddc8ba74787">
+        <source media="(prefers-color-scheme: light)" srcset="https://github.com/zk-kit/zk-kit/assets/11427903/f691c48c-021f-485d-89ef-9ddc8ba74787">
+        <source media="(prefers-color-scheme: dark)" srcset="https://github.com/zk-kit/zk-kit/assets/11427903/f43f4403-846a-48b4-a1fa-0ab234c225e5">
+        <img width="250" alt="ZK-Kit logo" src="https://github.com/zk-kit/zk-kit/assets/11427903/f691c48c-021f-485d-89ef-9ddc8ba74787">
       </picture>
       <sub>JS</sub>
     </h1>
 </p>
 
 <p align="center">
-    <a href="https://github.com/privacy-scaling-explorations" target="_blank">
+    <a href="https://github.com/zk-kit" target="_blank">
         <img src="https://img.shields.io/badge/project-PSE-blue.svg?style=flat-square">
     </a>
-    <a href="https://github.com/privacy-scaling-explorations/zk-kit/blob/main/LICENSE">
-        <img alt="Github license" src="https://img.shields.io/github/license/privacy-scaling-explorations/zk-kit.svg?style=flat-square">
+    <a href="https://github.com/zk-kit/zk-kit/blob/main/LICENSE">
+        <img alt="Github license" src="https://img.shields.io/github/license/zk-kit/zk-kit.svg?style=flat-square">
     </a>
-    <a href="https://github.com/privacy-scaling-explorations/zk-kit/actions?query=workflow%3Amain">
-        <img alt="GitHub Workflow Tests" src="https://img.shields.io/github/actions/workflow/status/privacy-scaling-explorations/zk-kit/main.yml?branch=main&label=tests&style=flat-square&logo=github">
+    <a href="https://github.com/zk-kit/zk-kit/actions?query=workflow%3Amain">
+        <img alt="GitHub Workflow Tests" src="https://img.shields.io/github/actions/workflow/status/zk-kit/zk-kit/main.yml?branch=main&label=tests&style=flat-square&logo=github">
     </a>
-    <a href="https://coveralls.io/github/privacy-scaling-explorations/zk-kit">
-        <img alt="Coveralls" src="https://img.shields.io/coveralls/github/privacy-scaling-explorations/zk-kit?label=coverage (ts)&style=flat-square&logo=coveralls">
+    <a href="https://coveralls.io/github/zk-kit/zk-kit">
+        <img alt="Coveralls" src="https://img.shields.io/coveralls/github/zk-kit/zk-kit?label=coverage (ts)&style=flat-square&logo=coveralls">
     </a>
     <a href="https://eslint.org/">
         <img alt="Linter eslint" src="https://img.shields.io/badge/linter-eslint-8080f2?style=flat-square&logo=eslint">
@@ -31,8 +31,8 @@
     <a href="http://commitizen.github.io/cz-cli/">
         <img alt="Commitizen friendly" src="https://img.shields.io/badge/commitizen-friendly-586D76?style=flat-square">
     </a>
-    <a href="https://www.gitpoap.io/gh/privacy-scaling-explorations/zk-kit" target="_blank" >
-        <img alt="GitPOAPs" src="https://public-api.gitpoap.io/v1/repo/privacy-scaling-explorations/zk-kit/badge">
+    <a href="https://www.gitpoap.io/gh/zk-kit/zk-kit" target="_blank" >
+        <img alt="GitPOAPs" src="https://public-api.gitpoap.io/v1/repo/zk-kit/zk-kit/badge">
     </a>
 </p>
 
@@ -46,7 +46,7 @@
             🤝 Code of conduct
         </a>
         <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-        <a href="https://github.com/privacy-scaling-explorations/zk-kit/issues/new/choose">
+        <a href="https://github.com/zk-kit/zk-kit/issues/new/choose">
             🔎 Issues
         </a>
         <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
@@ -69,15 +69,15 @@
 
 ## 🗂️ Repositories
 
--   Circom: [privacy-scaling-explorations/zk-kit.circom](https://github.com/privacy-scaling-explorations/zk-kit.circom)
--   Javascript: [privacy-scaling-explorations/zk-kit](https://github.com/privacy-scaling-explorations/zk-kit)
--   Noir: [privacy-scaling-explorations/zk-kit.noir](https://github.com/privacy-scaling-explorations/zk-kit.noir)
--   Rust: [privacy-scaling-explorations/zk-kit.rust](https://github.com/privacy-scaling-explorations/zk-kit.rust)
--   Solidity: [privacy-scaling-explorations/zk-kit.solidity](https://github.com/privacy-scaling-explorations/zk-kit.solidity)
+-   Circom: [zk-kit/zk-kit.circom](https://github.com/zk-kit/zk-kit.circom)
+-   Javascript: [zk-kit/zk-kit](https://github.com/zk-kit/zk-kit)
+-   Noir: [zk-kit/zk-kit.noir](https://github.com/zk-kit/zk-kit.noir)
+-   Rust: [zk-kit/zk-kit.rust](https://github.com/zk-kit/zk-kit.rust)
+-   Solidity: [zk-kit/zk-kit.solidity](https://github.com/zk-kit/zk-kit.solidity)
 
 ## 📄 Papers
 
--   LeanIMT ([Download PDF](https://github.com/privacy-scaling-explorations/zk-kit/raw/main/papers/leanimt/paper/leanimt-paper.pdf))
+-   LeanIMT ([Download PDF](https://github.com/zk-kit/zk-kit/raw/main/papers/leanimt/paper/leanimt-paper.pdf))
 
 ## 📦 Packages
 
@@ -90,7 +90,7 @@
     <tbody>
         <tr>
             <td>
-                <a href="https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/eddsa-poseidon">
+                <a href="https://github.com/zk-kit/zk-kit/tree/main/packages/eddsa-poseidon">
                     @zk-kit/eddsa-poseidon
                 </a>
             </td>
@@ -120,7 +120,7 @@
         </tr>
         <tr>
             <td>
-                <a href="https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/poseidon-cipher">
+                <a href="https://github.com/zk-kit/zk-kit/tree/main/packages/poseidon-cipher">
                     @zk-kit/poseidon-cipher
                 </a>
             </td>
@@ -148,7 +148,7 @@
         </tr>
         <tr>
             <td>
-                <a href="https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/baby-jubjub">
+                <a href="https://github.com/zk-kit/zk-kit/tree/main/packages/baby-jubjub">
                     @zk-kit/baby-jubjub
                 </a>
             </td>
@@ -178,7 +178,7 @@
         </tr>
         <tr>
             <td>
-                <a href="https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/utils">
+                <a href="https://github.com/zk-kit/zk-kit/tree/main/packages/utils">
                     @zk-kit/utils
                 </a>
             </td>
@@ -208,7 +208,7 @@
         </tr>
         <tr>
             <td>
-                <a href="https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/imt">
+                <a href="https://github.com/zk-kit/zk-kit/tree/main/packages/imt">
                     @zk-kit/imt
                 </a>
             </td>
@@ -236,7 +236,7 @@
         </tr>
         <tr>
             <td>
-                <a href="https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/lean-imt">
+                <a href="https://github.com/zk-kit/zk-kit/tree/main/packages/lean-imt">
                     @zk-kit/lean-imt
                 </a>
             </td>
@@ -266,7 +266,7 @@
         </tr>
         <tr>
             <td>
-                <a href="https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/smt">
+                <a href="https://github.com/zk-kit/zk-kit/tree/main/packages/smt">
                     @zk-kit/smt
                 </a>
             </td>
@@ -294,7 +294,7 @@
         </tr>
         <tr>
             <td>
-                <a href="https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/poseidon-proof">
+                <a href="https://github.com/zk-kit/zk-kit/tree/main/packages/poseidon-proof">
                     @zk-kit/poseidon-proof
                 </a>
             </td>
@@ -322,7 +322,7 @@
         </tr>
         <tr>
             <td>
-                <a href="https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/logical-expressions">
+                <a href="https://github.com/zk-kit/zk-kit/tree/main/packages/logical-expressions">
                     @zk-kit/logical-expressions
                 </a>
             </td>
@@ -353,17 +353,17 @@
 
 ## 👥 Ways to contribute
 
--   🔧 Work on [open issues](https://github.com/privacy-scaling-explorations/zk-kit/contribute)
--   📦 Suggest new [packages](https://github.com/privacy-scaling-explorations/zk-kit/issues/new?assignees=&labels=feature+%3Arocket%3A&template=---package.md&title=)
--   🚀 Share ideas for new [features](https://github.com/privacy-scaling-explorations/zk-kit/issues/new?assignees=&labels=feature+%3Arocket%3A&template=---feature.md&title=)
--   🐛 Create a report if you find any [bugs](https://github.com/privacy-scaling-explorations/zk-kit/issues/new?assignees=&labels=bug+%F0%9F%90%9B&template=---bug.md&title=) in the code
+-   🔧 Work on [open issues](https://github.com/zk-kit/zk-kit/contribute)
+-   📦 Suggest new [packages](https://github.com/zk-kit/zk-kit/issues/new?assignees=&labels=feature+%3Arocket%3A&template=---package.md&title=)
+-   🚀 Share ideas for new [features](https://github.com/zk-kit/zk-kit/issues/new?assignees=&labels=feature+%3Arocket%3A&template=---feature.md&title=)
+-   🐛 Create a report if you find any [bugs](https://github.com/zk-kit/zk-kit/issues/new?assignees=&labels=bug+%F0%9F%90%9B&template=---bug.md&title=) in the code
 
 ## 🛠 Install
 
 Clone this repository:
 
 ```bash
-git clone https://github.com/privacy-scaling-explorations/zk-kit.git
+git clone https://github.com/zk-kit/zk-kit.git
 ```
 
 and install the dependencies:
@@ -475,7 +475,7 @@ grep -r -l "smt" . | xargs sed -i 's/smt/my-package/'
 # Update the remaining description/usage sections, and write your code in the src & tests folders!
 ```
 
-3. Create an [issue](https://github.com/privacy-scaling-explorations/zk-kit/issues/new?assignees=&labels=feature+%3Arocket%3A&template=---package.md&title=) for your package and open a PR.
+3. Create an [issue](https://github.com/zk-kit/zk-kit/issues/new?assignees=&labels=feature+%3Arocket%3A&template=---package.md&title=) for your package and open a PR.
 
 #### How can I create benchmarks for my library?
 
@@ -489,11 +489,11 @@ You can see some examples in the `benchmarks` folder. All you have to do is crea
 
 **Sparse:** Particularly useful when you need proof of non-membership.
 
-| Type                 | Library Name                                                                                           | Main Feature                            | Used by                                                                                                                 |
-| -------------------- | ------------------------------------------------------------------------------------------------------ | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| **Incremental**      | [@zk-kit/imt](https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/imt)           | Fastest for incremental updates.        | [Semaphore V3](https://github.com/semaphore-protocol/semaphore/tree/v3.15.2), [Worldcoin](https://github.com/worldcoin) |
-| **Lean Incremental** | [@zk-kit/lean-imt](https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/lean-imt) | Optimized for lightweight environments. | [Semaphore V4](https://github.com/semaphore-protocol/semaphore), [Zupass](https://github.com/proofcarryingdata/zupass)  |
-| **Sparse**           | [@zk-kit/smt](https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/smt)           | Handles very large sets efficiently.    | [Iden3](https://github.com/iden3)                                                                                       |
+| Type                 | Library Name                                                                     | Main Feature                            | Used by                                                                                                                 |
+| -------------------- | -------------------------------------------------------------------------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **Incremental**      | [@zk-kit/imt](https://github.com/zk-kit/zk-kit/tree/main/packages/imt)           | Fastest for incremental updates.        | [Semaphore V3](https://github.com/semaphore-protocol/semaphore/tree/v3.15.2), [Worldcoin](https://github.com/worldcoin) |
+| **Lean Incremental** | [@zk-kit/lean-imt](https://github.com/zk-kit/zk-kit/tree/main/packages/lean-imt) | Optimized for lightweight environments. | [Semaphore V4](https://github.com/semaphore-protocol/semaphore), [Zupass](https://github.com/proofcarryingdata/zupass)  |
+| **Sparse**           | [@zk-kit/smt](https://github.com/zk-kit/zk-kit/tree/main/packages/smt)           | Handles very large sets efficiently.    | [Iden3](https://github.com/iden3)                                                                                       |
 
 Following benchmarks data of zk-kit Merkle Trees implementations:
 |8 leafs|insert|delete|update|generate proof|verify proof|

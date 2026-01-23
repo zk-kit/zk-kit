@@ -2,9 +2,9 @@
     "name": "zk-kit",
     "description": "A monorepo of reusable JS libraries for zero-knowledge technologies.",
     "license": "MIT",
-    "repository": "git@github.com:privacy-scaling-explorations/zk-kit.git",
-    "homepage": "https://github.com/privacy-scaling-explorations/zk-kit",
-    "bugs": "https://github.com/privacy-scaling-explorations/zk-kit/issues",
+    "repository": "git@github.com:zk-kit/zk-kit.git",
+    "homepage": "https://github.com/zk-kit/zk-kit",
+    "bugs": "https://github.com/zk-kit/zk-kit/issues",
     "private": true,
     "scripts": {
         "_build": "yarn workspaces foreach -A -t --no-private run build",

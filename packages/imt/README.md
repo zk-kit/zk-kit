@@ -6,10 +6,10 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/privacy-scaling-explorations/zk-kit">
+    <a href="https://github.com/zk-kit/zk-kit">
         <img src="https://img.shields.io/badge/project-zk--kit-blue.svg?style=flat-square">
     </a>
-    <a href="https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/imt/LICENSE">
+    <a href="https://github.com/zk-kit/zk-kit/tree/main/packages/imt/LICENSE">
         <img alt="NPM license" src="https://img.shields.io/npm/l/%40zk-kit%2Fimt?style=flat-square">
     </a>
     <a href="https://www.npmjs.com/package/@zk-kit/imt">
@@ -38,7 +38,7 @@
 </div>
 
 > [!WARNING]  
-> If you are looking for the first version of this package, please visit this [link](https://github.com/privacy-scaling-explorations/zk-kit/tree/imt-v1/packages/incremental-merkle-tree).
+> If you are looking for the first version of this package, please visit this [link](https://github.com/zk-kit/zk-kit/tree/imt-v1/packages/incremental-merkle-tree).
 
 In this implementation, the tree is built with a predetermined depth, utilizing a list of zeros (one for each level) to hash nodes lacking fully defined children. The tree's branching factor, or the number of children per node, can be customized via the arity parameter.
 

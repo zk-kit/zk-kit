@@ -6,10 +6,10 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/privacy-scaling-explorations/zk-kit">
+    <a href="https://github.com/zk-kit/zk-kit">
         <img src="https://img.shields.io/badge/project-zk--kit-blue.svg?style=flat-square">
     </a>
-    <a href="https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/lean-imt/LICENSE">
+    <a href="https://github.com/zk-kit/zk-kit/tree/main/packages/lean-imt/LICENSE">
         <img alt="NPM license" src="https://img.shields.io/npm/l/%40zk-kit%2Flean-imt?style=flat-square">
     </a>
     <a href="https://www.npmjs.com/package/@zk-kit/lean-imt">
@@ -40,7 +40,7 @@
 > [!NOTE]  
 > This library has been audited as part of the Semaphore V4 PSE audit: https://semaphore.pse.dev/Semaphore_4.0.0_Audit.pdf.
 
-The LeanIMT is an optimized binary version of the [IMT](https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/imt) into binary-focused model, eliminating the need for zero values and allowing dynamic depth adjustment. Unlike the IMT, which uses a zero hash for incomplete nodes, the LeanIMT directly adopts the left child's value when a node lacks a right counterpart. The tree's depth dynamically adjusts to the count of leaves, enhancing efficiency by reducing the number of required hash calculations. To understand more about the LeanIMT, check out the [paper](https://github.com/privacy-scaling-explorations/zk-kit/tree/main/papers/leanimt).
+The LeanIMT is an optimized binary version of the [IMT](https://github.com/zk-kit/zk-kit/tree/main/packages/imt) into binary-focused model, eliminating the need for zero values and allowing dynamic depth adjustment. Unlike the IMT, which uses a zero hash for incomplete nodes, the LeanIMT directly adopts the left child's value when a node lacks a right counterpart. The tree's depth dynamically adjusts to the count of leaves, enhancing efficiency by reducing the number of required hash calculations. To understand more about the LeanIMT, check out the [paper](https://github.com/zk-kit/zk-kit/tree/main/papers/leanimt).
 
 ---
 

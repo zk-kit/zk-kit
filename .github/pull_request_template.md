@@ -29,7 +29,7 @@
 
 <!-- Please check if the PR fulfills these requirements. -->
 
--   [ ] I have read and understand the [contributor guidelines](https://github.com/privacy-scaling-explorations/zk-kit/blob/main/CONTRIBUTING.md) and [code of conduct](https://github.com/privacy-scaling-explorations/zk-kit/blob/main/CODE_OF_CONDUCT.md).
+-   [ ] I have read and understand the [contributor guidelines](https://github.com/zk-kit/zk-kit/blob/main/CONTRIBUTING.md) and [code of conduct](https://github.com/zk-kit/zk-kit/blob/main/CODE_OF_CONDUCT.md).
 -   [ ] I have performed a self-review of my code
 -   [ ] I have commented my code, particularly in hard-to-understand areas
 -   [ ] My changes generate no new warnings
@@ -38,4 +38,4 @@
 -   [ ] New and existing unit tests pass locally with my changes
 
 > [!IMPORTANT]
-> We do not accept pull requests for minor grammatical fixes (e.g., correcting typos, rewording sentences) or for fixing broken links, unless they significantly improve clarity or functionality. These contributions, while appreciated, are not a priority for merging. If you notice any of these issues, please create a [GitHub Issue](https://github.com/privacy-scaling-explorations/zk-kit/issues/new?template=BLANK_ISSUE) to report them so they can be properly tracked and addressed.
+> We do not accept pull requests for minor grammatical fixes (e.g., correcting typos, rewording sentences) or for fixing broken links, unless they significantly improve clarity or functionality. These contributions, while appreciated, are not a priority for merging. If you notice any of these issues, please create a [GitHub Issue](https://github.com/zk-kit/zk-kit/issues/new?template=BLANK_ISSUE) to report them so they can be properly tracked and addressed.

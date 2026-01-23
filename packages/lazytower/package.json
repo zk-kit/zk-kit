@@ -22,8 +22,8 @@
         "README.md",
         "LICENSE"
     ],
-    "repository": "git@github.com:privacy-scaling-explorations/zk-kit.git",
-    "homepage": "https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/lazytower",
+    "repository": "git@github.com:zk-kit/zk-kit.git",
+    "homepage": "https://github.com/zk-kit/zk-kit/tree/main/packages/lazytower",
     "author": {
         "name": "LCamel",
         "email": "lcamel@gmail.com",
