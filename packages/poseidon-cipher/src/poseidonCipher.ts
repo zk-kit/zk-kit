@@ -136,7 +136,7 @@ export const poseidonDecrypt = (
 
 /**
  * Decrypt some ciphertext using poseidon encryption
- * @dev Do not throw if the plaintext is invalid
+ * @remarks Does not throw if the plaintext is invalid.
  * @param ciphertext the ciphertext to decrypt
  * @param key the key to decrypt with
  * @param nonce the nonce used to encrypt

@@ -55,7 +55,7 @@ export const pow5 = (a: bigint): bigint => Fr.mul(a, Fr.square(Fr.square(a)))
 
 /**
  * Given a bigint a, returns a normalized value of a.
- * @dev r is 'r' is the alt_bn128 prime order, so we can use it to normalize values
+ * @remarks r is the alt_bn128 prime order, so we can use it to normalize values.
  * @param a the value to normalize
  * @returns the normalized value of a
  */

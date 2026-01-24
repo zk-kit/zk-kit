@@ -8,7 +8,7 @@ import {
 import { LeanIMTHashFunction, LeanIMTMerkleProof } from "./types"
 
 /**
- * The {@link LeanIMT} is an optimized binary version of the {@link IMT}.
+ * The {@link LeanIMT} is an optimized binary version of the IMT (Incremental Merkle Tree).
  * This implementation exclusively supports binary trees, eliminates the use of
  * zeroes, and the tree's {@link LeanIMT#depth} is dynamic. When a node doesn't have the right child,
  * instead of using a zero hash as in the IMT, the node's value becomes that
@@ -54,7 +54,7 @@ export default class LeanIMT<N = bigint> {
     /**
      * The root of the tree. This value doesn't need to be stored as
      * it is always the first and unique element of the last level of the tree.
-     * Its value can be retrieved in {@link LeanIMT#_nodes}.
+     * Its value can be retrieved in `_nodes`.
      * @returns The root hash of the tree.
      */
     public get root(): N {
@@ -71,7 +71,7 @@ export default class LeanIMT<N = bigint> {
 
     /**
      * The leaves of the tree. They can be retrieved from the first
-     * level of the tree using {@link LeanIMT#_nodes}. The returned
+     * level of the tree using `_nodes`. The returned
      * value is a copy of the array and not the original object.
      * @returns The list of tree leaves.
      */
