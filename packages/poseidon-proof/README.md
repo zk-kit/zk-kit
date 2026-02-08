@@ -6,10 +6,10 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/privacy-scaling-explorations/zk-kit">
+    <a href="https://github.com/zk-kit/zk-kit">
         <img src="https://img.shields.io/badge/project-zk--kit-blue.svg?style=flat-square">
     </a>
-    <a href="https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/poseidon-proof/LICENSE">
+    <a href="https://github.com/zk-kit/zk-kit/tree/main/packages/poseidon-proof/LICENSE">
         <img alt="NPM license" src="https://img.shields.io/npm/l/%40zk-kit%2Fposeidon-proof?style=flat-square">
     </a>
     <a href="https://www.npmjs.com/package/@zk-kit/poseidon-proof">
@@ -37,8 +37,8 @@
     </h4>
 </div>
 
-| This zero-knowledge library facilitates the demonstration of having a Poseidon hash pre-image while keeping the pre-image value confidential. Additionally, it offers a mechanism to prevent the same proof from being reused. The circuit that forms the foundation of this library is accessible via this [link](https://github.com/privacy-scaling-explorations/zk-kit.circom/blob/main/packages/poseidon-proof/src/poseidon-proof.circom). |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| This zero-knowledge library facilitates the demonstration of having a Poseidon hash pre-image while keeping the pre-image value confidential. Additionally, it offers a mechanism to prevent the same proof from being reused. The circuit that forms the foundation of this library is accessible via this [link](https://github.com/zk-kit/zk-kit.circom/blob/main/packages/poseidon-proof/src/poseidon-proof.circom). |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 
 Originally developed for integration with [Semaphore V4](https://github.com/semaphore-protocol/semaphore), this library also functions effectively as a standalone tool. Notable use cases in connection with Semaphore can be:
 

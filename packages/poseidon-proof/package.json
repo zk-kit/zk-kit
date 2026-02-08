@@ -19,10 +19,10 @@
         "LICENSE",
         "README.md"
     ],
-    "repository": "git@github.com:privacy-scaling-explorations/zk-kit.git",
-    "homepage": "https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/poseidon-proof",
+    "repository": "git@github.com:zk-kit/zk-kit.git",
+    "homepage": "https://github.com/zk-kit/zk-kit/tree/main/packages/poseidon-proof",
     "bugs": {
-        "url": "https://github.com/privacy-scaling-explorations/zk-kit.git/issues"
+        "url": "https://github.com/zk-kit/zk-kit.git/issues"
     },
     "scripts": {
         "build": "rimraf dist && rollup -c rollup.config.ts --configPlugin typescript",

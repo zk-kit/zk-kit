@@ -14,7 +14,7 @@ import { CipherText, EncryptionKey, Nonce, PlainText } from "./types"
  * and may be vulnerable to timing attacks. If your application requires protection against timing attacks,
  * consider using a constant-time cryptographic library instead.
  * See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt#cryptography
- * This issue is tracked in GitHub issue #341: https://github.com/privacy-scaling-explorations/zk-kit/issues/341
+ * This issue is tracked in GitHub issue #341: https://github.com/zk-kit/zk-kit/issues/341
  */
 
 /**

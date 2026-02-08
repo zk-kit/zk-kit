@@ -6,10 +6,10 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/privacy-scaling-explorations/zk-kit">
+    <a href="https://github.com/zk-kit/zk-kit">
         <img src="https://img.shields.io/badge/project-zk--kit-blue.svg?style=flat-square">
     </a>
-    <a href="https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/baby-jubjub/LICENSE">
+    <a href="https://github.com/zk-kit/zk-kit/tree/main/packages/baby-jubjub/LICENSE">
         <img alt="NPM license" src="https://img.shields.io/npm/l/%40zk-kit%2Fbaby-jubjub?style=flat-square">
     </a>
     <a href="https://www.npmjs.com/package/@zk-kit/baby-jubjub">

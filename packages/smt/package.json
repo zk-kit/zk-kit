@@ -27,8 +27,8 @@
         "README.md",
         "LICENSE"
     ],
-    "repository": "git@github.com:privacy-scaling-explorations/zk-kit.git",
-    "homepage": "https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/smt",
+    "repository": "git@github.com:zk-kit/zk-kit.git",
+    "homepage": "https://github.com/zk-kit/zk-kit/tree/main/packages/smt",
     "author": {
         "name": "Cedoor",
         "email": "me@cedoor.dev",

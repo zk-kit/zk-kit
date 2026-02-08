@@ -17,10 +17,10 @@
         "dist/",
         "src/"
     ],
-    "repository": "git@github.com:privacy-scaling-explorations/zk-kit.git",
-    "homepage": "https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/logical-expressions",
+    "repository": "git@github.com:zk-kit/zk-kit.git",
+    "homepage": "https://github.com/zk-kit/zk-kit/tree/main/packages/logical-expressions",
     "bugs": {
-        "url": "https://github.com/privacy-scaling-explorations/zk-kit.git/issues"
+        "url": "https://github.com/zk-kit/zk-kit.git/issues"
     },
     "author": {
         "name": "Vivian Plasencia",

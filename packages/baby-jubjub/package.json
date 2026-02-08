@@ -22,10 +22,10 @@
         "LICENSE",
         "README.md"
     ],
-    "repository": "git@github.com:privacy-scaling-explorations/zk-kit.git",
-    "homepage": "https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/baby-jubjub",
+    "repository": "git@github.com:zk-kit/zk-kit.git",
+    "homepage": "https://github.com/zk-kit/zk-kit/tree/main/packages/baby-jubjub",
     "bugs": {
-        "url": "https://github.com/privacy-scaling-explorations/zk-kit.git/issues"
+        "url": "https://github.com/zk-kit/zk-kit.git/issues"
     },
     "scripts": {
         "build": "rimraf dist && rollup -c rollup.config.ts --configPlugin typescript",

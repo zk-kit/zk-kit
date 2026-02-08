@@ -1,6 +1,6 @@
 # LeanIMT Paper
 
-This folder contains the LeanIMT Paper ([Download PDF](https://github.com/privacy-scaling-explorations/zk-kit/raw/main/papers/leanimt/paper/leanimt-paper.pdf)).
+This folder contains the LeanIMT Paper ([Download PDF](https://github.com/zk-kit/zk-kit/raw/main/papers/leanimt/paper/leanimt-paper.pdf)).
 
 ## Related work
 
@@ -10,9 +10,9 @@ This folder contains the LeanIMT Paper ([Download PDF](https://github.com/privac
 
 ## Code
 
--   LeanIMT TypeScript implementation: https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/lean-imt.
+-   LeanIMT TypeScript implementation: https://github.com/zk-kit/zk-kit/tree/main/packages/lean-imt.
 
--   LeanIMT Solidity implementation: https://github.com/privacy-scaling-explorations/zk-kit.solidity/tree/main/packages/lean-imt.
+-   LeanIMT Solidity implementation: https://github.com/zk-kit/zk-kit.solidity/tree/main/packages/lean-imt.
 
 ## Install Latex to work with VSCode on Mac
 
