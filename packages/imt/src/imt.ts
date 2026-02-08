@@ -108,7 +108,7 @@ export default class IMT {
     /**
      * The root of the tree. This value doesn't need to be stored as
      * it is always the first and unique element of the last level of the tree.
-     * Its value can be retrieved in {@link IMT#_nodes}.
+     * Its value can be retrieved in `_nodes`.
      * @returns The root hash of the tree.
      */
     public get root(): IMTNode {
@@ -125,7 +125,7 @@ export default class IMT {
 
     /**
      * The leaves of the tree. They can be retrieved from the first
-     * level of the tree using {@link IMT#_nodes}. The returned
+     * level of the tree using `_nodes`. The returned
      * value is a copy of the array and not the original object.
      * @returns The list of tree leaves.
      */

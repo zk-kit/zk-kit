@@ -12,5 +12,6 @@ const entryPoints = fs
 module.exports = {
     entryPoints,
     name: "zk-kit",
-    entryPointStrategy: "packages"
+    entryPointStrategy: "packages",
+    excludeExternals: true
 }
