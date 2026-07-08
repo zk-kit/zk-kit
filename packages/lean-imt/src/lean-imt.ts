@@ -188,7 +188,7 @@ export default class LeanIMT<N = bigint> {
                 const rightNode = this._nodes[level][index * 2 + 1]
                 const leftNode = this._nodes[level][index * 2]
 
-                const parentNode = rightNode ? this._hash(leftNode, rightNode) : leftNode
+                const parentNode = rightNode !== undefined ? this._hash(leftNode, rightNode) : leftNode
 
                 this._nodes[level + 1][index] = parentNode
             }
@@ -282,7 +282,7 @@ export default class LeanIMT<N = bigint> {
             for (const index of modifiedIndices) {
                 const leftChild = this._nodes[level - 1][2 * index]
                 const rightChild = this._nodes[level - 1][2 * index + 1]
-                this._nodes[level][index] = rightChild ? this._hash(leftChild, rightChild) : leftChild
+                this._nodes[level][index] = rightChild !== undefined ? this._hash(leftChild, rightChild) : leftChild
                 newModifiedIndices.push(index >> 1)
             }
             modifiedIndices = new Set<number>(newModifiedIndices)

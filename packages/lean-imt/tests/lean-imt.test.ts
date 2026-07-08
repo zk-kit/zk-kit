@@ -180,6 +180,17 @@ describe("Lean IMT", () => {
 
             expect(tree.root).toBe(roots[0])
         })
+
+        it(`Should not treat zero leafs as absent`, () => {
+            const tree = new LeanIMT(poseidon)
+
+            // The zero leaf lands at index 1 (a right node), so the parent must
+            // be hash(1, 0). A truthiness check would wrongly skip the zero and
+            // set the root to the left child (1).
+            tree.insertMany([BigInt(1), BigInt(0)])
+
+            expect(tree.root).toBe(poseidon(BigInt(1), BigInt(0)))
+        })
     })
 
     describe("# update", () => {
@@ -331,6 +342,17 @@ describe("Lean IMT", () => {
             const updatedRoot = poseidon(h2_0, updateLeaves[2])
 
             expect(tree.root).toBe(updatedRoot)
+        })
+
+        it(`Should not treat zero leafs updates as absent`, () => {
+            const tree = new LeanIMT(poseidon, [BigInt(1), BigInt(2)])
+
+            // Updating the right node (index 1) to zero must recompute the
+            // parent as hash(1, 0). A truthiness check would wrongly skip the
+            // zero child and set the root to the left child (1).
+            tree.updateMany([1], [BigInt(0)])
+
+            expect(tree.root).toBe(poseidon(BigInt(1), BigInt(0)))
         })
     })
 
