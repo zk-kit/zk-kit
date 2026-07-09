@@ -1,32 +1,32 @@
 import { poseidon, smt } from "circomlibjs"
 import sha256 from "crypto-js/sha256"
 import { BarretenbergSync, Fr } from "@aztec/bb.js"
-import { ChildNodes, SMT } from "../src"
+import { HashFunction, SMT } from "../src"
 
 describe("SMT", () => {
-    const hashes = {
-        sha256: (childNodes: ChildNodes) => childNodes.join(""),
-        poseidon2: (childNodes: ChildNodes) => childNodes.join(""),
-        pedersen: (childNodes: ChildNodes) => childNodes.join(""),
-        poseidon: (childNodes: ChildNodes) => childNodes.join("")
+    const hashes: Record<string, HashFunction> = {
+        sha256: (childNodes) => childNodes.join(""),
+        poseidon2: (childNodes) => childNodes.join(""),
+        pedersen: (childNodes) => childNodes.join(""),
+        poseidon: (childNodes) => childNodes.join("")
     }
 
     const testKeys = ["a", "3", "2b", "20", "9", "17"]
 
     beforeAll(async () => {
         const bb = await BarretenbergSync.new()
-        hashes.sha256 = (childNodes: ChildNodes) => sha256(childNodes.join("")).toString()
-        hashes.poseidon2 = (childNodes: ChildNodes) =>
+        hashes.sha256 = (childNodes) => sha256(childNodes.join("")).toString()
+        hashes.poseidon2 = (childNodes) =>
             bb
                 .poseidon2Hash([Fr.fromString(childNodes.join(""))])
                 .toString()
                 .slice(2)
-        hashes.pedersen = (childNodes: ChildNodes) =>
+        hashes.pedersen = (childNodes) =>
             bb
                 .pedersenHash([Fr.fromString(childNodes.join(""))], 0)
                 .toString()
                 .slice(2)
-        hashes.poseidon = (childNodes: ChildNodes) => poseidon(childNodes)
+        hashes.poseidon = (childNodes) => poseidon(childNodes)
     })
 
     describe("Create hexadecimal trees", () => {
@@ -221,7 +221,7 @@ describe("SMT", () => {
             }
 
             const proof = tree.createProof("19")
-            proof.matchingEntry = ["20", "a"]
+            proof.matchingEntry = ["20", "a", "1"]
 
             expect(tree.verifyProof(proof)).toBeFalsy()
         })

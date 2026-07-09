@@ -1,5 +1,17 @@
 import { checkHex, getFirstCommonElements, getIndexOfLastNonZeroElement, keyToPath } from "./utils"
-import { ChildNodes, EntryMark, HashFunction, Key, Value, Node, Siblings, EntryResponse, MerkleProof } from "./types"
+import {
+    ChildNodes,
+    EntryMark,
+    HashFunction,
+    Key,
+    Value,
+    Node,
+    Siblings,
+    EntryResponse,
+    MerkleProof,
+    InternalChildNodes,
+    LeafChildNodes
+} from "./types"
 
 /**
  * SparseMerkleTree class provides all the functions to create a sparse Merkle tree
@@ -298,19 +310,19 @@ export default class SMT {
                 if (childNodes[0] === key) {
                     // An entry with the same key was found and
                     // it returns it with the siblings.
-                    return { entry: childNodes, siblings }
+                    return { entry: childNodes as LeafChildNodes, siblings }
                 }
                 // The entry found does not have the same key. But the key of this
                 // particular entry matches the first 'i' bits of the key passed
                 // as parameter and it can be useful in several functions.
-                return { entry: [key], matchingEntry: childNodes, siblings }
+                return { entry: [key], matchingEntry: childNodes as LeafChildNodes, siblings }
             }
 
             // When it goes down into the tree and follows the path, in every step
             // a node is chosen between the left and the right child nodes, and the
             // opposite node is saved as siblings.
-            node = childNodes[direction] as Node
-            siblings.push(childNodes[Number(!direction)] as Node)
+            node = (childNodes as InternalChildNodes)[direction] as Node
+            siblings.push((childNodes as InternalChildNodes)[Number(!direction)] as Node)
         }
 
         // The path led to a zero node.
@@ -326,7 +338,7 @@ export default class SMT {
      */
     private calculateRoot(node: Node, path: number[], siblings: Siblings): Node {
         for (let i = siblings.length - 1; i >= 0; i -= 1) {
-            const childNodes: ChildNodes = path[i] ? [siblings[i], node] : [node, siblings[i]]
+            const childNodes: InternalChildNodes = path[i] ? [siblings[i], node] : [node, siblings[i]]
             node = this.hash(childNodes)
         }
 
@@ -343,7 +355,7 @@ export default class SMT {
      */
     private addNewNodes(node: Node, path: number[], siblings: Siblings, i = siblings.length - 1): Node {
         for (; i >= 0; i -= 1) {
-            const childNodes: ChildNodes = path[i] ? [siblings[i], node] : [node, siblings[i]]
+            const childNodes: InternalChildNodes = path[i] ? [siblings[i], node] : [node, siblings[i]]
             node = this.hash(childNodes)
 
             this.nodes.set(node, childNodes)
@@ -360,7 +372,7 @@ export default class SMT {
      */
     private deleteOldNodes(node: Node, path: number[], siblings: Siblings) {
         for (let i = siblings.length - 1; i >= 0; i -= 1) {
-            const childNodes: ChildNodes = path[i] ? [siblings[i], node] : [node, siblings[i]]
+            const childNodes: InternalChildNodes = path[i] ? [siblings[i], node] : [node, siblings[i]]
             node = this.hash(childNodes)
 
             this.nodes.delete(node)
@@ -373,7 +385,7 @@ export default class SMT {
      * @returns True if the node is a leaf, false otherwise.
      */
     private isLeaf(node: Node): boolean {
-        const childNodes = this.nodes.get(node)
+        const childNodes = this.nodes.get(node) as ChildNodes | undefined
 
         return !!(childNodes && childNodes[2])
     }
