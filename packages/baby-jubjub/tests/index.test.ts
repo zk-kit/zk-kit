@@ -8,7 +8,7 @@ describe("BabyJubjub", () => {
 
     let publicKey: Point<bigint>
 
-    it("Should add 1 point to the curve", async () => {
+    it("Should add the base point to the subgroup", async () => {
         const p1: Point<bigint> = [BigInt(0), BigInt(1)]
 
         const newPoint = addPoint(p1, Base8)
@@ -27,7 +27,7 @@ describe("BabyJubjub", () => {
         expect(publicKey[1]).toBe(circomlibPublicKey[1])
     })
 
-    it("Should check if a point is in the curve", async () => {
+    it("Should check if a point is on the curve", async () => {
         expect(inCurve(publicKey)).toBeTruthy()
     })
 
@@ -54,7 +54,7 @@ describe("BabyJubjub", () => {
         expect(unpackedPoint[1]).toBe(publicKey[1])
     })
 
-    it("Should unpack a packed public key with less bytes than 32", async () => {
+    it("Should unpack a packed public key with fewer than 32 bytes", async () => {
         const publicKey: Point<bigint> = [
             BigInt("10207164244839265210731148792003399330071235260758262804307337735329782473514"),
             BigInt("4504034976288485670718230979254896078098063043333320048161019268102694534400")
@@ -68,7 +68,7 @@ describe("BabyJubjub", () => {
         expect(unpackedPoint[1]).toBe(publicKey[1])
     })
 
-    it("Should not unpack a packed public key if the coordinate y of the public key is not in the curve", async () => {
+    it("Should not unpack a packed public key if the y-coordinate is not on the curve", async () => {
         const publicKey: Point<bigint> = [
             BigInt("10207164244839265210731148792003399330071235260758262804307337735329782473514"),
             BigInt(r + BigInt(1))
@@ -79,17 +79,17 @@ describe("BabyJubjub", () => {
         expect(unpackPoint(packedPoint)).toBeNull()
     })
 
-    it("Should compute the sqrt when the input 'n' is zero", async () => {
+    it("Should return zero when computing the sqrt of zero", async () => {
         expect(tonelliShanks(BigInt(0), BigInt(1))).toBe(BigInt(0))
     })
 
-    it("Should not compute the sqrt when involves a range error", async () => {
+    it("Should throw when computing the sqrt with a zero modulus", async () => {
         const fun = () => tonelliShanks(BigInt(1), BigInt(0))
 
         expect(fun).toThrow("Division by zero")
     })
 
-    it("Should not compute the sqrt when the input 'n' does not have a square root in the field", async () => {
+    it("Should return null when the input has no square root in the field", async () => {
         expect(tonelliShanks(BigInt(-1), BigInt(1))).toBeNull()
     })
 })

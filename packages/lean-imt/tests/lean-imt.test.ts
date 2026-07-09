@@ -28,7 +28,7 @@ describe("Lean IMT", () => {
     })
 
     describe("# new LeanIMT", () => {
-        it("Should not initialize a tree if the parameters are wrong", () => {
+        it("Should not initialize a tree if the parameters are invalid", () => {
             const fun1 = () => new LeanIMT(undefined as any)
             const fun2 = () => new LeanIMT(1 as any)
             const fun3 = () => new LeanIMT(poseidon, "string" as any)
@@ -75,7 +75,7 @@ describe("Lean IMT", () => {
     })
 
     describe("# indexOf", () => {
-        it(`Should not return any value if the index is not defined`, () => {
+        it(`Should throw if the leaf is undefined`, () => {
             const tree = new LeanIMT(poseidon)
 
             const fun = () => tree.indexOf(undefined as any)
@@ -93,7 +93,7 @@ describe("Lean IMT", () => {
     })
 
     describe("# has", () => {
-        it(`Should not return any value if the leaf is not defined`, () => {
+        it(`Should throw if the leaf is undefined`, () => {
             const tree = new LeanIMT(poseidon)
 
             const fun = () => tree.has(undefined as any)
@@ -119,7 +119,7 @@ describe("Lean IMT", () => {
     })
 
     describe("# insert", () => {
-        it(`Should not insert any leaf if it is not defined`, () => {
+        it(`Should not insert a leaf if it is undefined`, () => {
             const tree = new LeanIMT(poseidon)
 
             const fun = () => tree.insert(undefined as any)
@@ -149,7 +149,7 @@ describe("Lean IMT", () => {
     })
 
     describe("# insertMany", () => {
-        it(`Should not insert any leaf if the list of leaves is not defined`, () => {
+        it(`Should not insert leaves if the list is undefined`, () => {
             const tree = new LeanIMT(poseidon)
 
             const fun = () => tree.insertMany(undefined as any)
@@ -157,7 +157,7 @@ describe("Lean IMT", () => {
             expect(fun).toThrow("Parameter 'leaves' is not defined")
         })
 
-        it(`Should not insert any leaf if the list of leaves is not a list`, () => {
+        it(`Should not insert leaves if the input is not an array`, () => {
             const tree = new LeanIMT(poseidon)
 
             const fun = () => tree.insertMany("uoe" as any)
@@ -165,7 +165,7 @@ describe("Lean IMT", () => {
             expect(fun).toThrow("Parameter 'leaves' is not an Array instance")
         })
 
-        it(`Should not insert any leaf if the list of leaves is empty`, () => {
+        it(`Should not insert leaves if the list is empty`, () => {
             const tree = new LeanIMT(poseidon)
 
             const fun = () => tree.insertMany([])
@@ -194,7 +194,7 @@ describe("Lean IMT", () => {
     })
 
     describe("# update", () => {
-        it(`Should not update any leaf if the parameters are not defined`, () => {
+        it(`Should not update a leaf if the parameters are undefined`, () => {
             const tree = new LeanIMT(poseidon, leaves)
 
             const fun1 = () => tree.update(undefined as any, BigInt(1))
@@ -204,7 +204,7 @@ describe("Lean IMT", () => {
             expect(fun2).toThrow("Parameter 'newLeaf' is not defined")
         })
 
-        it(`Should not update any leaf if the index is not a number`, () => {
+        it(`Should not update a leaf if the index is not a number`, () => {
             const tree = new LeanIMT(poseidon, leaves)
 
             const fun = () => tree.update("uoe" as any, BigInt(3))
@@ -212,7 +212,7 @@ describe("Lean IMT", () => {
             expect(fun).toThrow("Parameter 'index' is not a number")
         })
 
-        it(`Should insert 1 leaf`, () => {
+        it(`Should update a leaf and recompute the root`, () => {
             const tree = new LeanIMT(poseidon, [BigInt(0), BigInt(1)])
 
             tree.update(0, BigInt(2))
@@ -232,7 +232,7 @@ describe("Lean IMT", () => {
     })
 
     describe("# updateMany", () => {
-        it(`Should not update any leaf if one of the parameters is not defined`, () => {
+        it(`Should not update leaves if any parameter is undefined`, () => {
             const tree = new LeanIMT(poseidon, leaves)
 
             const fun1 = () => tree.updateMany([1], undefined as any)
@@ -242,7 +242,7 @@ describe("Lean IMT", () => {
             expect(fun2).toThrow("Parameter 'indices' is not defined")
         })
 
-        it(`Should not update any leaf if the parameters are not arrays`, () => {
+        it(`Should not update leaves if the parameters are not arrays`, () => {
             const tree = new LeanIMT(poseidon, leaves)
 
             const fun1 = () => tree.updateMany([3], BigInt(1) as any)
@@ -252,7 +252,7 @@ describe("Lean IMT", () => {
             expect(fun2).toThrow("Parameter 'indices' is not an Array instance")
         })
 
-        it(`Should not update any leaf if the parameters are of different size`, () => {
+        it(`Should not update leaves if the parameter arrays have different lengths`, () => {
             const tree = new LeanIMT(poseidon, leaves)
 
             const fun1 = () => tree.updateMany([1, 2, 3], [BigInt(1), BigInt(2)])
@@ -262,7 +262,7 @@ describe("Lean IMT", () => {
             expect(fun2).toThrow("There is no correspondence between indices and leaves")
         })
 
-        it(`Should not update any leaf if some index is not a number`, () => {
+        it(`Should not update leaves if any index is not a number`, () => {
             const tree = new LeanIMT(poseidon, leaves)
 
             const fun1 = () => tree.updateMany([1, "hello" as any, 3], [BigInt(1), BigInt(2), BigInt(3)])
@@ -272,7 +272,7 @@ describe("Lean IMT", () => {
             expect(fun2).toThrow("Parameter 'index 2' is not a number")
         })
 
-        it(`Should not update any leaf if some index is out of range`, () => {
+        it(`Should not update leaves if any index is out of range`, () => {
             const tree = new LeanIMT(poseidon, leaves)
 
             const fun1 = () => tree.updateMany([-1, 2, 3], [BigInt(1), BigInt(2), BigInt(3)])
@@ -284,7 +284,7 @@ describe("Lean IMT", () => {
             expect(fun3).toThrow("Index 2 is out of range")
         })
 
-        it(`Should not update any leaf when passing an empty list`, () => {
+        it(`Should preserve the root when updating with empty arrays`, () => {
             const tree = new LeanIMT(poseidon, leaves)
             const previousRoot = tree.root
 
@@ -293,7 +293,7 @@ describe("Lean IMT", () => {
             expect(tree.root).toBe(previousRoot)
         })
 
-        it(`'updateMany' with 1 change should be the same as 'update'`, () => {
+        it(`Should produce the same result with updateMany as with update for a single change`, () => {
             const tree1 = new LeanIMT(poseidon, leaves)
             const tree2 = new LeanIMT(poseidon, leaves)
 
@@ -306,7 +306,7 @@ describe("Lean IMT", () => {
             expect(tree1.root).toBe(tree2.root)
         })
 
-        it(`'updateMany' should be the same as executing the 'update' function multiple times`, () => {
+        it(`Should produce the same result with updateMany as with multiple update calls`, () => {
             const tree1 = new LeanIMT(poseidon, leaves)
             const tree2 = new LeanIMT(poseidon, leaves)
 
@@ -322,7 +322,7 @@ describe("Lean IMT", () => {
             expect(tree1.root).toBe(tree2.root)
         })
 
-        it(`'updateMany' with repeated indices should fail`, () => {
+        it(`Should throw when updateMany receives repeated indices`, () => {
             const tree = new LeanIMT(poseidon, leaves)
 
             const fun = () => tree.updateMany([4, 1, 4], [BigInt(-100), BigInt(-17), BigInt(1)])
@@ -330,7 +330,7 @@ describe("Lean IMT", () => {
             expect(fun).toThrow("Leaf 4 is repeated")
         })
 
-        it(`Should update leaves correctly`, () => {
+        it(`Should update leaves and recompute the root`, () => {
             const tree = new LeanIMT(poseidon, leaves)
 
             const updateLeaves = [BigInt(24), BigInt(-10), BigInt(100000)]
@@ -357,7 +357,7 @@ describe("Lean IMT", () => {
     })
 
     describe("# generateProof", () => {
-        it(`Should not generate any proof if the index is not defined`, () => {
+        it(`Should not generate a proof if the index is undefined`, () => {
             const tree = new LeanIMT(poseidon, leaves)
 
             const fun = () => tree.generateProof(undefined as any)
@@ -365,7 +365,7 @@ describe("Lean IMT", () => {
             expect(fun).toThrow("Parameter 'index' is not defined")
         })
 
-        it(`Should not generate any proof if the index is not a number`, () => {
+        it(`Should not generate a proof if the index is not a number`, () => {
             const tree = new LeanIMT(poseidon, leaves)
 
             const fun = () => tree.generateProof("uoe" as any)
@@ -373,7 +373,7 @@ describe("Lean IMT", () => {
             expect(fun).toThrow("Parameter 'index' is not a number")
         })
 
-        it("Should not generate any proof if the leaf does not exist", () => {
+        it("Should not generate a proof if the leaf does not exist", () => {
             const tree = new LeanIMT(poseidon, leaves)
 
             const fun = () => tree.generateProof(999)
@@ -391,7 +391,7 @@ describe("Lean IMT", () => {
             expect(tree.verifyProof(proof)).toBe(true)
         })
 
-        it(`Should generate ${treeSize} valid proof`, () => {
+        it(`Should generate ${treeSize} valid proofs`, () => {
             const tree = new LeanIMT(poseidon, leaves)
 
             for (let i = 0; i < treeSize; i += 1) {
@@ -418,7 +418,7 @@ describe("Lean IMT", () => {
     })
 
     describe("# verifyProof", () => {
-        it(`Should not verify any proof if the proof is not defined`, () => {
+        it(`Should not verify a proof if it is undefined`, () => {
             const tree = new LeanIMT(poseidon, leaves)
 
             const fun = () => tree.verifyProof(undefined as any)
@@ -426,7 +426,7 @@ describe("Lean IMT", () => {
             expect(fun).toThrow("Parameter 'proof' is not defined")
         })
 
-        it(`Should not verify any proof if the proof parameters are not defined`, () => {
+        it(`Should not verify a proof if its parameters are undefined`, () => {
             const tree = new LeanIMT(poseidon, leaves)
             const proof = tree.generateProof(3)
 
@@ -441,7 +441,7 @@ describe("Lean IMT", () => {
             expect(fun4).toThrow("Parameter 'proof.index' is not defined")
         })
 
-        it("Should not verify any proof if proof.siblings is not a list", () => {
+        it("Should not verify a proof if proof.siblings is not an array", () => {
             const tree = new LeanIMT(poseidon, leaves)
             const proof = tree.generateProof(3)
 
@@ -450,7 +450,7 @@ describe("Lean IMT", () => {
             expect(fun).toThrow("Parameter 'proof.siblings' is not an Array instance")
         })
 
-        it("Should not verify any proof if proof.index is not a number", () => {
+        it("Should not verify a proof if proof.index is not a number", () => {
             const tree = new LeanIMT(poseidon, leaves)
             const proof = tree.generateProof(3)
 
@@ -479,7 +479,7 @@ describe("Lean IMT", () => {
             expect(LeanIMT.verifyProof(proof, badHash)).toBe(false)
         })
 
-        it(`Should insert members,remove member,update member and verifyProof`, () => {
+        it(`Should insert, remove, and update members and verify proofs`, () => {
             const tree = new LeanIMT(poseidon)
 
             tree.insert(BigInt(1))
@@ -515,7 +515,7 @@ describe("Lean IMT", () => {
             expect(JSON.parse(nodes)[0]).toHaveLength(5)
         })
 
-        it("Should not import a tree if the required parameters are not valid", () => {
+        it("Should not import a tree if any required parameter is invalid", () => {
             const tree = new LeanIMT(poseidon, leaves)
             const nodes = tree.export()
 
@@ -564,7 +564,7 @@ describe("Lean IMT", () => {
             expect(tree2.indexOf(false)).toBe(tree1.indexOf(false))
         })
 
-        it("Should import a tree", () => {
+        it("Should import a tree without type conversion", () => {
             const tree1 = new LeanIMT(poseidon, leaves)
             const nodes = tree1.export()
 

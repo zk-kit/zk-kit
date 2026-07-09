@@ -25,7 +25,7 @@ describe("F1Field", () => {
         expect(c).toBe(11n)
     })
 
-    it("Should add into the finite field", () => {
+    it("Should add two values in the finite field", () => {
         const a = field.e(2n)
         const b = field.e(20n)
         const c = field.e(13n)
@@ -35,7 +35,7 @@ describe("F1Field", () => {
         expect(field.add(c, c)).toBe(0n)
     })
 
-    it("Should sub into the finite field", () => {
+    it("Should subtract two values in the finite field", () => {
         const a = field.e(4n)
         const b = field.e(2n)
 
@@ -43,7 +43,7 @@ describe("F1Field", () => {
         expect(field.sub(b, a)).toBe(11n)
     })
 
-    it("Should mul into the finite field", () => {
+    it("Should multiply two values in the finite field", () => {
         const a = field.e(2n)
         const b = field.e(11n)
 
@@ -51,14 +51,14 @@ describe("F1Field", () => {
         expect(field.mul(a, b)).toBe(9n)
     })
 
-    it("Should div into the finite field", () => {
+    it("Should divide two values in the finite field", () => {
         const a = field.e(2n)
         const b = field.e(4n)
 
         expect(field.div(a, b)).toBe(7n)
     })
 
-    it("Should eq into the finite field", () => {
+    it("Should check equality of two values in the finite field", () => {
         const a = field.e(2n)
         const b = field.e(3n)
 
@@ -66,7 +66,7 @@ describe("F1Field", () => {
         expect(field.eq(a, b)).toBeFalsy()
     })
 
-    it("Should square into the finite field", () => {
+    it("Should square a value in the finite field", () => {
         const a = field.e(2n)
         const b = field.e(5n)
 
@@ -74,7 +74,7 @@ describe("F1Field", () => {
         expect(field.square(b)).toBe(12n)
     })
 
-    it("Should inv into the finite field", () => {
+    it("Should compute the inverse of a value in the finite field", () => {
         const a = field.e(2n)
         const b = field.e(11n)
 
@@ -86,7 +86,7 @@ describe("F1Field", () => {
         expect(() => field.inv(0n)).toThrow("Zero has no inverse")
     })
 
-    it("Should lt into the finite field", () => {
+    it("Should compare two values with less-than in the finite field", () => {
         const a = field.e(2n)
         const b = field.e(3n)
 
@@ -95,7 +95,7 @@ describe("F1Field", () => {
         expect(field.lt(b, a)).toBeFalsy()
     })
 
-    it("Should geq into the finite field", () => {
+    it("Should compare two values with greater-or-equal in the finite field", () => {
         const a = field.e(2n)
         const b = field.e(3n)
 
@@ -103,7 +103,7 @@ describe("F1Field", () => {
         expect(field.geq(b, a)).toBeTruthy()
     })
 
-    it("Should neg into the finite field", () => {
+    it("Should negate a value in the finite field", () => {
         const a = field.e(2n)
         const b = field.e(-3n)
 
@@ -111,7 +111,7 @@ describe("F1Field", () => {
         expect(field.neg(b)).toBe(3n)
     })
 
-    it("Should isZero into the finite field", () => {
+    it("Should check if a value is zero in the finite field", () => {
         const a = field.e(0n)
         const b = field.e(1n)
 
@@ -119,7 +119,7 @@ describe("F1Field", () => {
         expect(field.isZero(b)).toBeFalsy()
     })
 
-    it("Should pow into the finite field", () => {
+    it("Should exponentiate a value in the finite field", () => {
         const a = field.e(0n)
         const b = field.e(1n)
         const c = field.e(2n)

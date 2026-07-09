@@ -2,7 +2,7 @@ import { getFirstCommonElements, getIndexOfLastNonZeroElement, hexToBin, keyToPa
 
 describe("Utility functions", () => {
     describe("Convert SMT keys in 256-bit paths", () => {
-        it("Should convert a key in an array of 256 bits", () => {
+        it("Should convert a key to an array of 256 bits", () => {
             const path = keyToPath("17")
 
             expect(path).toHaveLength(256)
@@ -17,13 +17,13 @@ describe("Utility functions", () => {
     })
 
     describe("Get index of the last non-zero element", () => {
-        it("Should return the correct index of the last non-zero element", () => {
+        it("Should return the index of the last non-zero element", () => {
             const index = getIndexOfLastNonZeroElement(["0", "17", "3", "0", "3", "0", "3", "2", "0", "0"])
 
             expect(index).toBe(7)
         })
 
-        it("Should return -1 if there are not non-zero elements", () => {
+        it("Should return -1 if all elements are zero", () => {
             const index = getIndexOfLastNonZeroElement(["0", "0", "0", "0"])
 
             expect(index).toBe(-1)

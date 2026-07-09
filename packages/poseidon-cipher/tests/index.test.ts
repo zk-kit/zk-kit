@@ -13,7 +13,7 @@ describe("Poseidon Cipher", () => {
     const nonce: Nonce = BigInt(5)
 
     describe("poseidonEncrypt", () => {
-        it("Should encrypt a ciphertext given a key and a nonce", () => {
+        it("Should encrypt plaintext given a key and a nonce", () => {
             const cipherText = poseidonEncrypt(plainText, encryptionKey, nonce)
             expect(cipherText).toBeDefined()
             expect(cipherText).toHaveLength(4)
@@ -21,7 +21,7 @@ describe("Poseidon Cipher", () => {
     })
 
     describe("poseidonDecrypt", () => {
-        it("Should produce the correct plaintext given a ciphertext and key", () => {
+        it("Should produce the plaintext given a ciphertext and key", () => {
             const cipherText = poseidonEncrypt(plainText, encryptionKey, nonce)
             const decryptedPlainText = poseidonDecrypt(cipherText, encryptionKey, nonce, plainText.length)
             expect(decryptedPlainText).toStrictEqual(plainText)
@@ -45,7 +45,7 @@ describe("Poseidon Cipher", () => {
     })
 
     describe("poseidonDecryptWithoutCheck", () => {
-        it("Should produce the correct plaintext given a ciphertext and key", () => {
+        it("Should produce the plaintext given a ciphertext and key", () => {
             const cipherText = poseidonEncrypt(plainText, encryptionKey, nonce)
             const decryptedPlainText = poseidonDecryptWithoutCheck(cipherText, encryptionKey, nonce, plainText.length)
             expect(decryptedPlainText).toStrictEqual(plainText)

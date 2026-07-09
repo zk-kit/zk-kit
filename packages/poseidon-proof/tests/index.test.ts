@@ -24,7 +24,7 @@ afterAll(async () => {
 })
 
 describe("PoseidonProof", () => {
-    it("should generate a Poseidon proof", async () => {
+    it("Should generate a Poseidon proof", async () => {
         expect(fullProof.proof).toHaveLength(8)
         expect(decodeBytes32String(toBeHex(fullProof.scope, 32))).toBe(scope.toString())
         expect(fullProof.digest).toBe(digest.toString())
@@ -34,7 +34,7 @@ describe("PoseidonProof", () => {
         await expect(verify(fullProof)).resolves.toBe(true)
     })
 
-    it("Should verify an invalid Poseidon proof", async () => {
+    it("Should not verify an invalid Poseidon proof", async () => {
         fullProof.digest = "3"
 
         const response = await verify(fullProof)

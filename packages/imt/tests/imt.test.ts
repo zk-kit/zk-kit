@@ -19,7 +19,7 @@ describe("IMT", () => {
             })
 
             describe("# new IMT", () => {
-                it("Should not initialize a tree with wrong parameters", () => {
+                it("Should not initialize a tree with invalid parameters", () => {
                     const fun1 = () => new IMT(undefined as any, 33, 0, arity)
                     const fun2 = () => new IMT(1 as any, 33, 0, arity)
                     const fun3 = () => new IMT(poseidon, depth, 0, arity, 2 as any)
@@ -66,7 +66,7 @@ describe("IMT", () => {
             })
 
             describe("# insert", () => {
-                it("Should not insert a leaf in a full tree", () => {
+                it("Should not insert a leaf into a full tree", () => {
                     const fullTree = new IMT(poseidon3, 1, 0, 3)
 
                     fullTree.insert(0)
@@ -132,7 +132,7 @@ describe("IMT", () => {
                     }
                 })
 
-                it(`Should not error when update value is the same`, () => {
+                it(`Should not throw when updating a leaf with the same value`, () => {
                     for (let i = 0; i < numberOfLeaves; i += 1) {
                         tree.insert(1)
                         oldTree.insert(1)
@@ -164,7 +164,7 @@ describe("IMT", () => {
             })
 
             describe("# createProof/verifyProof", () => {
-                it("Should not create any proof if the leaf does not exist", () => {
+                it("Should not create a proof if the leaf does not exist", () => {
                     tree.insert(1)
 
                     const fun = () => tree.createProof(1)
@@ -172,7 +172,7 @@ describe("IMT", () => {
                     expect(fun).toThrow("The leaf does not exist in this tree")
                 })
 
-                it("Should create and verify valid proof", () => {
+                it("Should create and verify a valid proof", () => {
                     for (let i = 0; i < numberOfLeaves; i += 1) {
                         tree.insert(i + 1)
                     }
