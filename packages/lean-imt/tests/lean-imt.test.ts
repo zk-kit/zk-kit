@@ -220,6 +220,18 @@ describe("Lean IMT", () => {
             expect(tree.root).toBe(poseidon(BigInt(2), BigInt(1)))
         })
 
+        it("Should not update any leaf if the index is out of range", () => {
+            const tree = new LeanIMT(poseidon, leaves)
+
+            const fun1 = () => tree.update(-1, BigInt(1))
+            const fun2 = () => tree.update(tree.size, BigInt(1))
+            const fun3 = () => tree.update(999999, BigInt(1))
+
+            expect(fun1).toThrow("The leaf at index '-1' does not exist in this tree")
+            expect(fun2).toThrow(`The leaf at index '${tree.size}' does not exist in this tree`)
+            expect(fun3).toThrow("The leaf at index '999999' does not exist in this tree")
+        })
+
         it(`Should update ${treeSize} leaves`, () => {
             const tree = new LeanIMT(poseidon, leaves)
 

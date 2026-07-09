@@ -207,6 +207,10 @@ export default class LeanIMT<N = bigint> {
         requireDefined(newLeaf, "newLeaf")
         requireNumber(index, "index")
 
+        if (index < 0 || index >= this.size) {
+            throw new Error(`The leaf at index '${index}' does not exist in this tree`)
+        }
+
         let node = newLeaf
 
         for (let level = 0; level < this.depth; level += 1) {
