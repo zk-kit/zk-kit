@@ -235,6 +235,19 @@ export default class SMT {
      * @returns True if the proof is valid, false otherwise.
      */
     verifyProof(merkleProof: MerkleProof): boolean {
+        // If the tree is empty the only valid proof is a non-membership proof
+        // for the zero root with no siblings. This prevents a self-consistent
+        // proof built around a fabricated root from being accepted as a valid
+        // membership proof against an empty tree.
+        if (this.root === this.zeroNode) {
+            return (
+                merkleProof.root === this.zeroNode &&
+                merkleProof.siblings.length === 0 &&
+                merkleProof.matchingEntry === undefined &&
+                merkleProof.membership === false
+            )
+        }
+
         // If there is not a matching entry it simply obtains the root
         // hash by using the siblings and the path of the key.
         if (!merkleProof.matchingEntry) {

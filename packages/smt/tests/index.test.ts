@@ -225,6 +225,40 @@ describe("SMT", () => {
 
             expect(tree.verifyProof(proof)).toBeFalsy()
         })
+
+        it.each([["sha256"], ["poseidon2"], ["pedersen"]])(
+            "Should not verify a forged membership proof against an empty tree - %s",
+            (hash) => {
+                const hashFunction = hashes[hash as keyof typeof hashes]
+                const tree = new SMT(hashFunction)
+
+                // The tree is empty, so its root is the zero node and no key is a
+                // member. A self-consistent proof whose own root matches a fabricated
+                // leaf must not be accepted as a membership proof for this tree.
+                const entry: ChildNodes = ["1", "2", "1"]
+                const forgedProof = {
+                    entry,
+                    matchingEntry: undefined,
+                    siblings: [],
+                    root: hashFunction(entry),
+                    membership: true
+                }
+
+                expect(tree.verifyProof(forgedProof)).toBeFalsy()
+            }
+        )
+
+        it.each([["sha256"], ["poseidon2"], ["pedersen"]])(
+            "Should verify a non-membership proof against an empty tree - %s",
+            (hash) => {
+                const tree = new SMT(hashes[hash as keyof typeof hashes])
+
+                const proof = tree.createProof("1")
+
+                expect(proof.membership).toBeFalsy()
+                expect(tree.verifyProof(proof)).toBeTruthy()
+            }
+        )
     })
 
     describe("Create big number trees", () => {
