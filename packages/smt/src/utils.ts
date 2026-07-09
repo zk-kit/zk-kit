@@ -33,9 +33,17 @@ export function keyToPath(key: string | bigint): number[] {
  */
 export function getIndexOfLastNonZeroElement(array: any[]): number {
     for (let i = array.length - 1; i >= 0; i -= 1) {
-        if (Number(`0x${array[i]}`) !== 0) {
-            return i
+        // More robust handling of different types of zero values
+        if (array[i] === "0" || array[i] === 0 || array[i] === BigInt(0)) {
+            continue;
         }
+
+        if (typeof array[i] === "string" && /^0x0+$/.test(array[i])) {
+            continue;
+        }
+
+        // If we reach here, the element is non-zero
+        return i;
     }
 
     return -1
