@@ -1,5 +1,5 @@
 import { checkHex, getFirstCommonElements, getIndexOfLastNonZeroElement, keyToPath } from "./utils"
-import { ChildNodes, EntryMark, HashFunction, Key, Value, Node, Siblings, EntryResponse, MerkleProof } from "./types"
+import { ChildNodes, EntryMark, HashFunction, Key, Value, Node, Siblings, EntryResponse, MerkleProof, InternalChildNodes, LeafChildNodes } from "./types"
 
 /**
  * SparseMerkleTree class provides all the functions to create a sparse Merkle tree
@@ -21,6 +21,11 @@ import { ChildNodes, EntryMark, HashFunction, Key, Value, Node, Siblings, EntryR
  * * **matching node**: when an entry is not found and the path leads to another existing entry,
  * this entry is a matching entry and it has some of the first bits in common with the entry not found;
  * * **depth**: the depth of a node is the length of the path to its root.
+ *
+ * Note: The ChildNodes type has been updated to properly differentiate between internal nodes and leaf nodes.
+ * - InternalChildNodes: An array of two nodes [Node, Node], representing a parent node's children.
+ * - LeafChildNodes: Same as Entry type [Key, Value, EntryMark], representing leaf nodes.
+ * - ChildNodes: A union type of either InternalChildNodes or LeafChildNodes.
  */
 export default class SMT {
     // Hash function used to hash the child nodes.
@@ -298,19 +303,19 @@ export default class SMT {
                 if (childNodes[0] === key) {
                     // An entry with the same key was found and
                     // it returns it with the siblings.
-                    return { entry: childNodes, siblings }
+                    return { entry: childNodes as LeafChildNodes, siblings }
                 }
                 // The entry found does not have the same key. But the key of this
                 // particular entry matches the first 'i' bits of the key passed
                 // as parameter and it can be useful in several functions.
-                return { entry: [key], matchingEntry: childNodes, siblings }
+                return { entry: [key], matchingEntry: childNodes as LeafChildNodes, siblings }
             }
 
             // When it goes down into the tree and follows the path, in every step
             // a node is chosen between the left and the right child nodes, and the
             // opposite node is saved as siblings.
-            node = childNodes[direction] as Node
-            siblings.push(childNodes[Number(!direction)] as Node)
+            node = (childNodes as InternalChildNodes)[direction] as Node
+            siblings.push((childNodes as InternalChildNodes)[Number(!direction)] as Node)
         }
 
         // The path led to a zero node.
@@ -373,7 +378,7 @@ export default class SMT {
      * @returns True if the node is a leaf, false otherwise.
      */
     private isLeaf(node: Node): boolean {
-        const childNodes = this.nodes.get(node)
+        const childNodes = this.nodes.get(node) as ChildNodes | undefined
 
         return !!(childNodes && childNodes[2])
     }
