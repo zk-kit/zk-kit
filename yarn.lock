@@ -747,6 +747,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@datastructures-js/binary-search-tree@npm:5.4.0":
+  version: 5.4.0
+  resolution: "@datastructures-js/binary-search-tree@npm:5.4.0"
+  checksum: 10/2f32432aa3cc375ab7d094f6bd73fb90d85bf4d5351e09908094051d5d46c3767845d83474c733a4af71b2120b3b3fef5051b5ee3605bb22e59205f470149f54
+  languageName: node
+  linkType: hard
+
 "@eslint-community/eslint-utils@npm:^4.2.0, @eslint-community/eslint-utils@npm:^4.4.0":
   version: 4.4.0
   resolution: "@eslint-community/eslint-utils@npm:4.4.0"
@@ -3143,6 +3150,24 @@ __metadata:
     rollup: "npm:^4.12.0"
     rollup-plugin-cleanup: "npm:^3.2.1"
     rollup-plugin-dts: "npm:^6.1.1"
+  languageName: unknown
+  linkType: soft
+
+"@zk-kit/lean-imt-plus@workspace:packages/lean-imt-plus":
+  version: 0.0.0-use.local
+  resolution: "@zk-kit/lean-imt-plus@workspace:packages/lean-imt-plus"
+  dependencies:
+    "@datastructures-js/binary-search-tree": "npm:5.4.0"
+    "@rollup/plugin-commonjs": "npm:^25.0.7"
+    "@rollup/plugin-node-resolve": "npm:^15.2.3"
+    "@rollup/plugin-terser": "npm:^0.4.4"
+    "@rollup/plugin-typescript": "npm:^11.1.6"
+    poseidon-lite: "npm:^0.2.0"
+    rimraf: "npm:^5.0.5"
+    rollup: "npm:^4.12.0"
+    rollup-plugin-cleanup: "npm:^3.2.1"
+    rollup-plugin-dts: "npm:^6.1.1"
+    rollup-plugin-polyfill-node: "npm:^0.13.0"
   languageName: unknown
   linkType: soft
 
