@@ -240,6 +240,12 @@ describe("LeanIMTPlus", () => {
             expect(t.root).toBe(rootBefore)
         })
 
+        it("validates equal values before treating the update as a no-op", () => {
+            const t = newTree()
+            expect(() => t.update(0n, 0n)).toThrow(/zero/i)
+            expect(() => t.update(99n, 99n)).toThrow(/does not exist/i)
+        })
+
         it("throws on missing old value, present new value, or zero new value", () => {
             const t = newTree()
             t.insertMany([10n, 20n])
