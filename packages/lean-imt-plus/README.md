@@ -39,6 +39,9 @@
 
 LeanIMT+ is an optimized Incremental Merkle Tree designed to support efficient membership **and non-membership** proofs. It keeps the indexed-leaf linked-list trick from the [Indexed Merkle Tree](https://eprint.iacr.org/2021/1263.pdf) ("low leaf" non-membership) but builds it on the [LeanIMT](https://github.com/zk-kit/zk-kit/tree/main/packages/lean-imt) construction, so the depth stays **dynamic** and there are **no zero hashes**.
 
+> [!NOTE]
+> For a deeper explanation of how the tree works and its technical details, see the article [LeanIMT+: an efficient Merkle tree for membership and non-membership proofs](https://pse.dev/blog/lean-imt-plus-efficient-merkle-tree-for-membership-and-non-membership-proofs).
+
 > [!IMPORTANT]
 > If you only need **membership** proofs, use [@zk-kit/lean-imt](https://github.com/zk-kit/zk-kit/tree/main/packages/lean-imt) instead: it is more optimized for that use case. Reach for LeanIMT+ only when you need efficient **non-membership** proofs.
 
