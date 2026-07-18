@@ -161,10 +161,10 @@ export default class LeanIMTPlus<N = bigint> {
      * a separate `insert`.
      */
     public update(oldValue: N, newValue: N) {
-        if (this._eq(oldValue, newValue)) return
         if (this._eq(newValue, this._zero)) throw new Error("Cannot update to the zero value")
         if (this._eq(oldValue, this._zero)) throw new Error("Cannot update the zero value")
         if (!this.has(oldValue)) throw new Error("Value to update does not exist in the tree")
+        if (this._eq(oldValue, newValue)) return
         if (this.has(newValue)) throw new Error("Target value already exists in the tree")
 
         const modified = new Set<number>()
