@@ -1,6 +1,6 @@
 {
     "name": "@zk-kit/lean-imt-plus",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Lean Incremental Merkle tree with non-membership proofs implementation in TypeScript.",
     "type": "module",
     "license": "MIT",
