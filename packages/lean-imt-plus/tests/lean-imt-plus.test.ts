@@ -1,5 +1,12 @@
 import { poseidon2, poseidon3 } from "poseidon-lite"
-import { LeanIMTPlus, LeanIMTPlusProof, LeanIMTPlusHashFunctions } from "../src"
+import {
+    LeanIMTPlus,
+    LeanIMTPlusProof,
+    LeanIMTPlusHashFunctions,
+    AVLOrderedIndex,
+    defaultOrderedIndexFactory,
+    avlFactory
+} from "../src"
 
 const hashes: LeanIMTPlusHashFunctions<bigint> = {
     leaf: (a, b, c) => poseidon3([a, b, c]),
@@ -253,6 +260,12 @@ describe("LeanIMTPlus", () => {
             expect(() => t.update(10n, 20n)).toThrow(/already exists/i)
             expect(() => t.update(10n, 0n)).toThrow(/zero/i)
         })
+
+        it("throws when the old value is zero even if the new value is valid", () => {
+            const t = newTree()
+            t.insertMany([10n, 20n])
+            expect(() => t.update(0n, 5n)).toThrow(/zero/i)
+        })
     })
 
     describe("generateProof / verifyProof", () => {
@@ -306,6 +319,14 @@ describe("LeanIMTPlus", () => {
             expect(tree.verifyProof(bad)).toBe(false)
         })
 
+        it("rejects a non-membership proof whose value is not below the low leaf's nextValue", () => {
+            // Legit low leaf for 20 is {18, 25}. Claiming non-membership of 26
+            // against that low leaf is invalid: 26 is not below nextValue 25.
+            const p = tree.generateProof(20n)
+            const bad: LeanIMTPlusProof<bigint> = { ...p, value: 26n }
+            expect(tree.verifyProof(bad)).toBe(false)
+        })
+
         it("rejects a membership proof whose proofType was flipped", () => {
             const p = tree.generateProof(10n)
             const flipped: LeanIMTPlusProof<bigint> = { ...p, proofType: 1 }
@@ -329,6 +350,17 @@ describe("LeanIMTPlus", () => {
         it("rejects an invalid proofType discriminator", () => {
             const p = tree.generateProof(25n)
             expect(tree.verifyProof({ ...p, proofType: 2 as 0 | 1 })).toBe(false)
+        })
+
+        it("rejects a leafIndex with bits set above the sibling path length", () => {
+            // A valid leafIndex must fit in `siblings.length` bits: the canonical
+            // range is [0, 2 ** siblings.length). Anything at or above that bound
+            // has stray high bits that walkPath would silently ignore.
+            const p = tree.generateProof(25n)
+            expect(tree.verifyProof({ ...p, leafIndex: 2 ** p.siblings.length })).toBe(false)
+            // The largest in-range index is still structurally accepted (it fails
+            // only on the root check), never rejected by the range guard.
+            expect(tree.verifyProof({ ...p, leafIndex: 2 ** p.siblings.length - 1 })).toBe(false)
         })
 
         it("throws on zero or empty tree", () => {
@@ -418,6 +450,45 @@ describe("LeanIMTPlus", () => {
             )
         })
 
+        it("rejects an import whose leaf count does not match the level-0 nodes", () => {
+            const a = newTree()
+            a.insertMany([10n, 20n, 30n])
+            const s = JSON.parse(a.export()) as {
+                nodes: string[][]
+                leaves: { value: string; nextValue: string }[]
+            }
+            // Append an extra leaf record without a matching level-0 node.
+            s.leaves.push({ value: "0", nextValue: "0" })
+            expect(() => LeanIMTPlus.import<bigint>(hashes, JSON.stringify(s))).toThrow(/leaf count does not match/i)
+        })
+
+        it("rejects an import whose depth does not match the leaf count", () => {
+            const a = newTree()
+            a.insertMany([10n, 20n, 30n])
+            const s = JSON.parse(a.export()) as { nodes: string[][] }
+            // Drop the top level so the depth is smaller than the leaves require.
+            s.nodes.pop()
+            expect(() => LeanIMTPlus.import<bigint>(hashes, JSON.stringify(s))).toThrow(/depth/i)
+        })
+
+        it("rejects an import where an internal level has the wrong node count", () => {
+            const a = newTree()
+            a.insertMany([10n, 20n, 30n])
+            const s = JSON.parse(a.export()) as { nodes: string[][] }
+            // Add a spurious node to level 1 (sizes match at depth but not per level).
+            s.nodes[1].push(s.nodes[1][0])
+            expect(() => LeanIMTPlus.import<bigint>(hashes, JSON.stringify(s))).toThrow(/nodes, expected/i)
+        })
+
+        it("rejects an import where an internal node is inconsistent", () => {
+            const a = newTree()
+            a.insertMany([10n, 20n, 30n])
+            const s = JSON.parse(a.export()) as { nodes: string[][] }
+            // Corrupt an internal node while keeping every level's size valid.
+            s.nodes[1][0] = "1"
+            expect(() => LeanIMTPlus.import<bigint>(hashes, JSON.stringify(s))).toThrow(/inconsistent/i)
+        })
+
         it("rejects an import with an unsupported format version", () => {
             const a = newTree()
             a.insertMany([10n, 20n, 30n])
@@ -462,6 +533,115 @@ describe("LeanIMTPlus", () => {
             expect(t.has(11)).toBe(true)
             t.remove(11)
             expect(t.has(11)).toBe(false)
+        })
+    })
+
+    describe("AVLOrderedIndex adapter", () => {
+        it("throws when inserting a duplicate key", () => {
+            const idx = new AVLOrderedIndex<bigint>((a, b) => a < b)
+            idx.insert(5n, 0)
+            expect(() => idx.insert(5n, 1)).toThrow(/duplicate key/i)
+        })
+
+        it("throws when removing an absent key", () => {
+            const idx = new AVLOrderedIndex<bigint>((a, b) => a < b)
+            idx.insert(5n, 0)
+            expect(() => idx.remove(9n)).toThrow(/not found/i)
+        })
+    })
+
+    describe("internal invariant guards", () => {
+        // These defensive branches are unreachable through the public API
+        // (every caller pre-checks the precondition), so exercise them
+        // directly to lock in the guard behavior.
+        it("_findLowLeafIndex throws when the tree has no leaves", () => {
+            const t = newTree()
+            expect(() => (t as unknown as { _findLowLeafIndex(v: bigint): number })._findLowLeafIndex(5n)).toThrow(
+                /tree is empty/i
+            )
+        })
+
+        it("_buildProof throws for an out-of-range physical index", () => {
+            const t = newTree()
+            t.insertMany([10n, 20n])
+            const build = (
+                t as unknown as { _buildProof(type: 0 | 1, v: bigint, i: number): unknown }
+            )._buildProof.bind(t)
+            expect(() => build(0, 10n, 999)).toThrow(/does not exist/i)
+            expect(() => build(0, 10n, -1)).toThrow(/does not exist/i)
+        })
+
+        it("_removeOne throws when the value is absent", () => {
+            const t = newTree()
+            t.insertMany([10n, 20n])
+            const removeOne = (t as unknown as { _removeOne(v: bigint, modified: Set<number>): void })._removeOne.bind(
+                t
+            )
+            expect(() => removeOne(999n, new Set<number>())).toThrow(/does not exist/i)
+        })
+
+        it("_recompute is a no-op when nothing was modified", () => {
+            const t = newTree()
+            t.insertMany([10n, 20n])
+            const rootBefore = t.root
+            const recompute = (t as unknown as { _recompute(m: Set<number>): void })._recompute.bind(t)
+            expect(() => recompute(new Set<number>())).not.toThrow()
+            expect(t.root).toBe(rootBefore)
+        })
+    })
+
+    describe("degenerate single-node tree", () => {
+        // A depth-0 tree (a single level-0 node) cannot arise from the public
+        // insert path — the first insert always writes a sentinel plus a leaf —
+        // but an `import` can reconstruct one. It exercises the `size <= 1` /
+        // `depth === 0` / empty-path branches that a two-node-minimum tree skips.
+        const singleNode = () => {
+            const value = 5n
+            const nextValue = 0n
+            const commitment = hashes.leaf(value, nextValue, 1n).toString()
+            const data = JSON.stringify({
+                version: 1,
+                nodes: [[commitment]],
+                leaves: [{ value: value.toString(), nextValue: nextValue.toString() }]
+            })
+            return LeanIMTPlus.import<bigint>(hashes, data, { validate: true })
+        }
+
+        it("imports and validates a single-node tree", () => {
+            const t = singleNode()
+            expect(t.depth).toBe(0)
+            expect(t.root).toBe(hashes.leaf(5n, 0n, 1n))
+        })
+
+        it("_recompute handles a depth-0 tree", () => {
+            const t = singleNode()
+            const recompute = (t as unknown as { _recompute(m: Set<number>): void })._recompute.bind(t)
+            expect(() => recompute(new Set<number>([0]))).not.toThrow()
+            expect(t.depth).toBe(0)
+        })
+
+        it("_buildProof produces an empty path for a depth-0 tree", () => {
+            const t = singleNode()
+            const build = (
+                t as unknown as { _buildProof(type: 0 | 1, v: bigint, i: number): LeanIMTPlusProof<bigint> }
+            )._buildProof.bind(t)
+            const proof = build(0, 5n, 0)
+            expect(proof.leafIndex).toBe(0)
+            expect(proof.siblings).toEqual([])
+        })
+    })
+
+    describe("ordered-index factory barrel exports", () => {
+        it("exposes working factories from the package entry point", () => {
+            const lt = (a: unknown, b: unknown) => (a as bigint) < (b as bigint)
+            for (const factory of [defaultOrderedIndexFactory, avlFactory]) {
+                const idx = factory(lt)
+                idx.insert(3n, 0)
+                idx.insert(7n, 1)
+                expect(idx.size).toBe(2)
+                expect(idx.find(3n)).toBe(0)
+                expect(idx.predecessor(7n)).toBe(0)
+            }
         })
     })
 })
