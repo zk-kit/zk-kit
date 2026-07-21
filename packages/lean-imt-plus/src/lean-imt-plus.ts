@@ -224,9 +224,9 @@ export default class LeanIMTPlus<N = bigint> {
         if (proofType !== 0 && proofType !== 1) return false
         if (!Number.isInteger(leafIndex) || leafIndex < 0) return false
         // leafIndex's path bits live in [0..siblings.length); higher bits
-        // must be zero so the encoding is canonical.
-        if (siblings.length < 32 && leafIndex >= 1 << siblings.length) return false
-        if (siblings.length >= 32 && leafIndex >= Number.MAX_SAFE_INTEGER) return false
+        // must be zero so the encoding is canonical. `2 ** n` is exact for
+        // any practical depth and avoids the 32-bit wrap of `1 << n`.
+        if (leafIndex >= 2 ** siblings.length) return false
 
         // Reject the zero value for either proof type, it would collide with
         // the sentinel's value and (for non-membership) with the tombstone state.
