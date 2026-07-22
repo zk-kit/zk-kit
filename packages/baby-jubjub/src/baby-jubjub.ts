@@ -26,6 +26,8 @@ export const Base8: Point<bigint> = [
 const a = Fr.e(BigInt("168700"))
 const d = Fr.e(BigInt("168696"))
 
+export const id: Point<bigint> = [0n, 1n]
+
 // The Baby JubJub curve 'E(F_r)' is equal to the subgroup of 'F_r'-rational points of 'E'.
 export const order = BigInt("21888242871839275222246405745257275088614511777268538073601725287587578984328")
 export const subOrder = scalar.shiftRight(order, BigInt(3))
@@ -65,25 +67,38 @@ export function addPoint(p1: Point<bigint>, p2: Point<bigint>): Point<bigint> {
 /**
  * Performs a scalar multiplication by starting from the 'base' point and 'adding'
  * it to itself 'e' times.
+ * This algorithm is called 'Montgomery Ladder'. See {@link https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication#Montgomery_ladder}
+ * This works given the following invariant: At each step, R0 will be r_0*base where r_0 is the prefix of e
+ * written in binary and R1 will be (r_0+1)*base. In other words: at iteration i of the loop, r_0's binary
+ * representation will be the first i+1 most significant bits of e. If the upcoming bit is a 0, we just have to
+ * double R0 and add R0 to R1 to maintain the invariant. If it is a 1, we have to double R0 and add 1*base
+ * (or add R1, which is the same as (r_0+1)*base), and double R1 to maintain the invariant.
  * @param base The base point used as a starting point.
  * @param e A secret number representing the private key.
  * @returns The resulting point representing the public key.
  */
 export function mulPointEscalar(base: Point<bigint>, e: bigint): Point<bigint> {
-    let res: Point<bigint> = [Fr.e(BigInt(0)), Fr.e(BigInt(1))]
-    let rem: bigint = e
-    let exp: Point<bigint> = base
+    e %= order
+    // set a bit above the maximum value so that the exponent
+    // variable will always be 254 bits for subsequent operations
+    // the 254th bit should be ignored in any operations below
+    e += 1n << 254n
 
-    while (!scalar.isZero(rem)) {
-        if (scalar.isOdd(rem)) {
-            res = addPoint(res, exp)
+    let R0: Point<bigint> = id
+    let R1: Point<bigint> = base
+
+    // 'order' is a number of 254 bits, such as 1n<<253n. Therefore, we initialize the mask as 1<<253
+    for (let mask = 1n << 253n; mask > 0; mask >>= 1n) {
+        if (e & mask) {
+            R0 = addPoint(R0, R1)
+            R1 = addPoint(R1, R1)
+        } else {
+            R1 = addPoint(R0, R1)
+            R0 = addPoint(R0, R0)
         }
-
-        exp = addPoint(exp, exp)
-        rem = scalar.shiftRight(rem, BigInt(1))
     }
 
-    return res
+    return R0
 }
 
 /**
