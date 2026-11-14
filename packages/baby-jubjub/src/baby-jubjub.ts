@@ -139,7 +139,9 @@ export function unpackPoint(packedPoint: bigint): Point<bigint> | null {
 
     unpackedPoint[1] = leBufferToBigInt(buffer)
 
-    if (scalar.gt(unpackedPoint[1], r)) {
+    // The y coordinate must be a canonical field element (y < r), otherwise y and
+    // y + r would be two encodings of the same point.
+    if (!scalar.gt(r, unpackedPoint[1])) {
         return null
     }
 
@@ -152,6 +154,12 @@ export function unpackPoint(packedPoint: bigint): Point<bigint> | null {
     }
 
     if (sign) {
+        // x = 0 has no negative, so a set sign bit would be a second encoding
+        // of the same point (as in RFC 8032, section 5.1.3).
+        if (Fr.isZero(x)) {
+            return null
+        }
+
         x = Fr.neg(x)
     }
 
