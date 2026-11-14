@@ -38,6 +38,12 @@ describe("Conversions", () => {
 
             expect(fun).toThrow("Parameter 'value' is not a bigint, received type: number")
         })
+
+        it("Should throw an error if the parameter is a negative bigint", async () => {
+            const fun = () => bigIntToHexadecimal(BigInt(-1))
+
+            expect(fun).toThrow("Parameter 'value' must be a non-negative bigint, received: -1")
+        })
     })
 
     describe("# hexadecimalToBigInt", () => {
@@ -295,6 +301,12 @@ describe("Conversions", () => {
 
             expect(fun1).toThrow("Size 20 is too small, need at least 31 bytes")
             expect(fun2).toThrow("Size 20 is too small, need at least 32 bytes")
+        })
+
+        it("Should throw an error instead of returning zeros for negative bigints", async () => {
+            expect(() => beBigIntToBuffer(BigInt(-1))).toThrow("must be a non-negative bigint")
+            expect(() => leBigIntToBuffer(BigInt(-1), 32)).toThrow("must be a non-negative bigint")
+            expect(() => bigNumberishToBuffer(-5)).toThrow("must be a non-negative bigint")
         })
     })
 })

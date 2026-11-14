@@ -19,11 +19,17 @@ import { BigNumber, BigNumberish } from "./types"
 
 /**
  * Converts a bigint to a hexadecimal string.
- * @param value The bigint value to convert.
+ * @param value The bigint value to convert. It must be non-negative.
  * @returns The hexadecimal representation of the bigint.
  */
 export function bigIntToHexadecimal(value: bigint): string {
     requireBigInt(value, "value")
+
+    // Negative values have no unsigned representation: their hexadecimal string
+    // starts with '-', which buffer conversions would silently decode as zeros.
+    if (value < BigInt(0)) {
+        throw new RangeError(`Parameter 'value' must be a non-negative bigint, received: ${value}`)
+    }
 
     let hex = value.toString(16)
 
