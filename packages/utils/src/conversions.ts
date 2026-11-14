@@ -61,6 +61,11 @@ export function hexadecimalToBigInt(value: string): bigint {
 export function beBufferToBigInt(value: Buffer | Uint8Array): bigint {
     requireTypes(value, "value", ["Buffer", "Uint8Array"])
 
+    // An empty buffer represents 0 (BigInt("0x") would throw).
+    if (value.length === 0) {
+        return BigInt(0)
+    }
+
     return BigInt(`0x${Buffer.from(value).toString("hex")}`)
 }
 
@@ -72,6 +77,11 @@ export function beBufferToBigInt(value: Buffer | Uint8Array): bigint {
  */
 export function leBufferToBigInt(value: Buffer | Uint8Array): bigint {
     requireTypes(value, "value", ["Buffer", "Uint8Array"])
+
+    // An empty buffer represents 0 (BigInt("0x") would throw).
+    if (value.length === 0) {
+        return BigInt(0)
+    }
 
     return BigInt(`0x${Buffer.from(value).reverse().toString("hex")}`)
 }
