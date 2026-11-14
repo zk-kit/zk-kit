@@ -106,6 +106,20 @@ describe("LeanIMTPlus", () => {
         it("throws on a duplicate inside the batch", () => {
             expect(() => newTree().insertMany([3n, 5n, 3n])).toThrow(/already exists/i)
         })
+
+        it("keeps the tree consistent when a value fails mid-batch", () => {
+            const t = newTree()
+            t.insertMany([1n, 2n])
+            // 3 and 4 are committed before the duplicate 2 throws.
+            expect(() => t.insertMany([3n, 4n, 2n])).toThrow(/already exists/i)
+
+            const expected = newTree()
+            expect(() => expected.insertMany([1n, 2n, 3n, 4n])).not.toThrow()
+            expect(t.depth).toBe(expected.depth)
+            expect(t.root).toBe(expected.root)
+            expect(t.verifyProof(t.generateProof(3n))).toBe(true)
+            expect(() => LeanIMTPlus.import(hashes, t.export())).not.toThrow()
+        })
     })
 
     describe("remove", () => {

@@ -403,8 +403,13 @@ export default class LeanIMTPlus<N = bigint> {
 
     private _insertBatch(values: N[]) {
         const modified = new Set<number>()
-        for (const v of values) this._insertOne(v, modified)
-        this._recompute(modified)
+        try {
+            for (const v of values) this._insertOne(v, modified)
+        } finally {
+            // Rehash even if a value fails mid-batch: the values before it are
+            // already written to the leaves, so the internal nodes must follow.
+            this._recompute(modified)
+        }
     }
 
     /**
