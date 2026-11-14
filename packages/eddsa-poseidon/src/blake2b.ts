@@ -1,5 +1,9 @@
-import { blake2bInit, blake2bUpdate, blake2bFinal, Blake2bCTX } from "blakejs"
+import blakejs, { type Blake2bCTX } from "blakejs"
 import { HashFunction } from "./HashFunction"
+
+// blakejs is a CommonJS module, so its functions are read from the default
+// export: Node.js cannot resolve them as named ESM imports.
+const { blake2bInit, blake2bUpdate, blake2bFinal } = blakejs
 
 /**
  * @module Blake2b
