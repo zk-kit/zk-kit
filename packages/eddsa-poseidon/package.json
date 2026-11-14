@@ -18,12 +18,12 @@
         "./blake-1": {
             "types": "./dist/index.d.ts",
             "require": "./dist/lib.commonjs/eddsa-poseidon-blake-1.cjs",
-            "default": "./dist/esm/eddsa-poseidon-blake-1.js"
+            "default": "./dist/lib.esm/eddsa-poseidon-blake-1.js"
         },
         "./blake-2b": {
             "types": "./dist/index.d.ts",
             "require": "./dist/lib.commonjs/eddsa-poseidon-blake-2b.cjs",
-            "default": "./dist/esm/eddsa-poseidon-blake-2b.js"
+            "default": "./dist/lib.esm/eddsa-poseidon-blake-2b.js"
         }
     },
     "files": [
