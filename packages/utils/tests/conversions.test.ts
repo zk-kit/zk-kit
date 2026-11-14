@@ -296,5 +296,11 @@ describe("Conversions", () => {
             expect(fun1).toThrow("Size 20 is too small, need at least 31 bytes")
             expect(fun2).toThrow("Size 20 is too small, need at least 32 bytes")
         })
+
+        it("Should convert empty buffers to zero", async () => {
+            expect(beBufferToBigInt(Buffer.alloc(0))).toBe(BigInt(0))
+            expect(leBufferToBigInt(new Uint8Array(0))).toBe(BigInt(0))
+            expect(bigNumberishToBigInt(new Uint8Array(0))).toBe(BigInt(0))
+        })
     })
 })
