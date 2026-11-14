@@ -79,6 +79,20 @@ describe("BabyJubjub", () => {
         expect(unpackPoint(packedPoint)).toBeNull()
     })
 
+    it("Should not unpack a packed point whose coordinate y is equal to the field modulus", async () => {
+        // y = r would decode to the same point as y = 0, which is on the curve
+        expect(unpackPoint(BigInt(0))).not.toBeNull()
+        expect(unpackPoint(r)).toBeNull()
+        expect(unpackPoint(r | (BigInt(1) << BigInt(255)))).toBeNull()
+    })
+
+    it("Should not unpack a packed point with the sign bit set when x is zero", async () => {
+        const identity: Point<bigint> = [BigInt(0), BigInt(1)]
+
+        expect(unpackPoint(packPoint(identity))).toStrictEqual(identity)
+        expect(unpackPoint(BigInt(1) | (BigInt(1) << BigInt(255)))).toBeNull()
+    })
+
     it("Should compute the sqrt when the input 'n' is zero", async () => {
         expect(tonelliShanks(BigInt(0), BigInt(1))).toBe(BigInt(0))
     })
